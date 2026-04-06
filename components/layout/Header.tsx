@@ -2,7 +2,7 @@ import { Button } from "../ui/button";
 
 export default function Header() {
   return (
-    <header className="flex justify-between px-10 md:px-20 h-[8vh] items-center bg-white">
+    <header className="flex justify-between px-10 md:px-20 h-[8vh] items-center">
       <div>laschisa.dev</div>
       <nav>
         <ul className="flex space-x-4">

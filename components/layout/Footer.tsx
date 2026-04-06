@@ -2,7 +2,7 @@ import { Button } from "../ui/button";
 
 export default function Footer() {
   return (
-    <footer className="flex items-center px-10 md:px-20 h-[8vh] bg-white">
+    <footer className="flex items-center px-10 md:px-20 h-[8vh]">
       <div className="max-w-6xl mx-auto flex items-center justify-between w-full">
         <div className="text-zinc-400 text-xs font-bold tracking-widest">© 2026 LASCHISA.DEV • BUILD WITH INTENTIONALITY</div>
         <div className="flex gap-3 items-center ">
