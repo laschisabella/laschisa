@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { CircleArrowDown } from "lucide-react";
 import WorkPage from "./work/page";
 import StackPage from "./stack/page";
 import ContactPage from "./contact/page";
 
 function Hero() {
   return (
-    <div className="min-h-[92vh] flex flex-col justify-between px-10 md:px-20">
+    <section id="About" className="min-h-screen flex flex-col justify-between px-10 md:px-20">
       <div className="flex flex-col gap-3 items-center justify-center flex-1">
         <span className="uppercase text-xs text-primary/80 font-bold tracking-widest">
           senior systems architect
@@ -34,10 +33,7 @@ function Hero() {
           </Button>
         </div>
       </div>
-      <div className="text-center pb-4 md:h-30 flex justify-end">
-        <CircleArrowDown strokeWidth={1} size={60} className="text-primary" />
-      </div>
-    </div>
+    </section>
   );
 }
 

@@ -10,12 +10,12 @@ import { Button } from "@/components/ui/button";
 
 export default function ContactPage() {
   return (
-    <main className="max-w-6xl mx-auto flex justify-center items-center my-10 md:my-20">
+    <section id="Contact" className="max-w-6xl mx-auto flex justify-center items-center my-10 md:my-20">
       <div className="flex md:gap-20 items-center">
-        <div className="w-[50%] flex flex-col gap-10">
+        <div className="w-[50%] flex flex-col gap-10 ml-4">
           <h1 className="text-5xl font-semibold mb-3 leading-14">
-            Let&apos;s architect the{" "}
-            <span className="text-primary">next standard</span> of digital
+            Let&apos;s architect the
+            <span className="text-primary"> next standard</span> of digital
             engineering.
           </h1>
 
@@ -111,6 +111,6 @@ export default function ContactPage() {
           </Button>
         </div>
       </div>
-    </main>
+    </section>
   );
 }

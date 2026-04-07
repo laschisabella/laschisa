@@ -18,7 +18,7 @@ function SectionHeader() {
 
 export default function WorkPage() {
   return (
-    <div className="min-h-screen flex flex-col max-w-6xl mx-auto">
+    <section id="Work" className="min-h-screen flex flex-col max-w-6xl mx-auto">
       <SectionHeader />
       <div>
         <div className="flex bg-secondary/5 p-5 rounded-[20px] items-center mb-10">
@@ -151,6 +151,6 @@ export default function WorkPage() {
 
         </div>
       </div>
-    </div>
+    </section>
   );
 }

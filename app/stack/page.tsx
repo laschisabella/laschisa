@@ -157,7 +157,7 @@ function AboutSection() {
 
 export default function StackPage() {
   return (
-    <main className="min-h-screen max-w-6xl mx-auto flex flex-col mt-20">
+    <section id="Stack" className="min-h-screen max-w-6xl mx-auto flex flex-col mt-20">
       <SectionHeader />
 
       <section className="flex gap-10">
@@ -167,6 +167,6 @@ export default function StackPage() {
       </section>
 
       <AboutSection />
-    </main>
+    </section>
   );
 }
