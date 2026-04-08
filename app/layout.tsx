@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import { I18nProvider } from "@/providers/I18nProvider";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -35,6 +36,7 @@ export default async function RootLayout({
           <I18nProvider initialLocale={locale}>
             <Header />
             {children}
+            <Toaster position="top-center"/>
             <Footer />
           </I18nProvider>
         </ThemeProvider>
