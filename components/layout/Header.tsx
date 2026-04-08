@@ -5,39 +5,40 @@ import { Button } from "../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "@/hooks/useTheme";
 import { Moon, Sun } from "lucide-react";
+import { useI18n } from "@/hooks/useI18n";
+import { useEffect, useState } from "react";
 
-const sections = ["About", "Work", "Stack", "Contact"];
+const sections = ["About", "Work", "Stack", "Contact"] as const;
+type Section = (typeof sections)[number];
+type SectionLower = Lowercase<Section>;
+type NavKey = `nav.${SectionLower}`;
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = theme === "dark";
 
   return (
     <button
       onClick={toggleTheme}
-      className="relative w-10 h-10 flex items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800 cursor-pointer"
+      className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-neutral-200 dark:bg-neutral-800 cursor-pointer"
     >
       <AnimatePresence mode="wait" initial={false}>
-        {theme === "dark" ? (
+        {mounted && (
           <motion.span
-            key="moon"
+            key={isDark ? "moon" : "sun"}
             initial={{ rotate: -90, scale: 0 }}
             animate={{ rotate: 0, scale: 1 }}
             exit={{ rotate: 90, scale: 0 }}
             transition={{ duration: 0.3 }}
             className="text-lg"
           >
-           <Moon />
-          </motion.span>
-        ) : (
-          <motion.span
-            key="sun"
-            initial={{ rotate: 90, scale: 0 }}
-            animate={{ rotate: 0, scale: 1 }}
-            exit={{ rotate: -90, scale: 0 }}
-            transition={{ duration: 0.3 }}
-            className="text-lg"
-          >
-            <Sun />
+            {isDark ? <Moon /> : <Sun />}
           </motion.span>
         )}
       </AnimatePresence>
@@ -45,8 +46,21 @@ function ThemeToggle() {
   );
 }
 
+export function LanguageToggle() {
+  const { changeLocale } = useI18n();
+
+  return (
+    <div className="flex gap-2">
+      <button onClick={() => changeLocale("en")}>EN</button>
+      <button onClick={() => changeLocale("pt")}>PT</button>
+    </div>
+  );
+}
+
 export default function Header() {
   const active = useActiveSection(sections);
+  const { t } = useI18n();
+
   const handleClick = (id: string) => {
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
@@ -60,35 +74,37 @@ export default function Header() {
       </div>
       <nav>
         <ul className="flex space-x-6">
-          {sections.map((id) => (
-            <li key={id} className="relative">
-              <a
-                href={`#${id}`}
-                className={`px-2 py-1 ${
-                  active === id ? "text-accent font-bold" : "text-primary"
-                }`}
-                onClick={() => handleClick(id)}
-              >
-                {id}
-              </a>
-
-              {active === id && (
-                <motion.div
-                  layoutId="underline"
-                  className="absolute left-0 right-0 -bottom-1 h-0.5 bg-accent"
-                  transition={{
-                    type: "spring",
-                    stiffness: 500,
-                    damping: 30,
-                  }}
-                />
-              )}
-            </li>
-          ))}
+          {sections.map((id) => {
+            const key = `nav.${id.toLowerCase()}` as NavKey;
+            return (
+              <li key={id} className="relative">
+                <a
+                  href={`#${id}`}
+                  className={`px-2 py-1 ${
+                    active === id ? "text-accent font-bold" : "text-primary"
+                  }`}
+                  onClick={() => handleClick(id)}
+                >
+                  {t(key)}
+                </a>
+                {active === id && (
+                  <motion.div
+                    layoutId="underline"
+                    className="absolute left-0 right-0 -bottom-1 h-0.5 bg-accent"
+                    transition={{
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 30,
+                    }}
+                  />
+                )}
+              </li>
+            );
+          })}
         </ul>
       </nav>
       <div className="flex gap-3 items-center">
-        <div>lang</div>
+        <LanguageToggle />
         <ThemeToggle />
         <Button size="lg" variant="default">
           Download Resume
