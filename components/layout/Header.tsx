@@ -4,8 +4,9 @@ import { useActiveSection } from "@/hooks/useActiveSection";
 import { Button } from "../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "@/providers/ThemeProvider";
-import { Moon, Sun } from "lucide-react";
+import { CodeXml, Moon, Sun } from "lucide-react";
 import { useI18n } from "@/hooks/useI18n";
+import { useState } from "react";
 
 const sections = ["About", "Work", "Stack", "Contact"] as const;
 type Section = (typeof sections)[number];
@@ -37,13 +38,41 @@ function ThemeToggle() {
   );
 }
 
-export function LanguageToggle() {
-  const { changeLocale } = useI18n();
+function LanguageToggle() {
+  const { locale, changeLocale } = useI18n();
+  const [active, setActive] = useState<"en" | "pt">(locale);
+
+  const handleChange = (lang: "en" | "pt") => {
+    setActive(lang);
+    changeLocale(lang);
+  };
 
   return (
-    <div className="flex gap-2">
-      <button onClick={() => changeLocale("en")}>EN</button>
-      <button onClick={() => changeLocale("pt")}>PT</button>
+    <div className="relative flex w-fit rounded-full bg-muted p-1">
+      <motion.div
+        layout
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        className="absolute top-1 bottom-1 w-1/2 rounded-full bg-secondary/20 shadow"
+        style={{ left: active === "en" ? "4px" : "calc(47%)", }}
+      />
+
+      <button 
+        onClick={() => handleChange("en")}
+        className={`relative z-10 px-4 py-1 text-sm cursor-pointer ${
+          active === "en" ? "text-primary font-bold" : "text-muted-foreground"
+        }`}
+      >
+        EN
+      </button>
+
+      <button
+        onClick={() => handleChange("pt")}
+        className={`relative z-10 px-4 py-1 text-sm cursor-pointer ${
+          active === "pt" ? "text-primary font-bold" : "text-muted-foreground"
+        }`}
+      >
+        PT
+      </button>
     </div>
   );
 }
@@ -60,10 +89,11 @@ export default function Header() {
 
   return (
     <header className="w-full flex justify-between px-10 md:px-20 h-[8vh] items-center fixed bg-background z-50">
-      <div className="text-primary/70 text-sm tracking-widest uppercase font-bold">
-        laschisa.dev
+      <div className="text-primary/70 text-sm tracking-widest uppercase font-bold flex gap-3 items-center">
+        <CodeXml className="text-accent/70"/>
+        <p>laschisa.dev</p>
       </div>
-      <nav>
+      <nav className="ml-[7%]">
         <ul className="flex space-x-6">
           {sections.map((id) => {
             const key = `nav.${id.toLowerCase()}` as NavKey;
