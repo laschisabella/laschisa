@@ -3,10 +3,9 @@
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { Button } from "../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "@/providers/ThemeProvider";
 import { Moon, Sun } from "lucide-react";
 import { useI18n } from "@/hooks/useI18n";
-import { useEffect, useState } from "react";
 
 const sections = ["About", "Work", "Stack", "Contact"] as const;
 type Section = (typeof sections)[number];
@@ -15,12 +14,6 @@ type NavKey = `nav.${SectionLower}`;
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const isDark = theme === "dark";
 
   return (
@@ -29,7 +22,6 @@ function ThemeToggle() {
       className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-neutral-200 dark:bg-neutral-800 cursor-pointer"
     >
       <AnimatePresence mode="wait" initial={false}>
-        {mounted && (
           <motion.span
             key={isDark ? "moon" : "sun"}
             initial={{ rotate: -90, scale: 0 }}
@@ -40,7 +32,6 @@ function ThemeToggle() {
           >
             {isDark ? <Moon /> : <Sun />}
           </motion.span>
-        )}
       </AnimatePresence>
     </button>
   );
