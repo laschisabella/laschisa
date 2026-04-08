@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { en } from "@/messages/en";
 import { pt } from "@/messages/pt";
 
@@ -25,29 +25,18 @@ const messages = { en, pt };
 
 export const I18nContext = createContext<I18nContextType | null>(null);
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("locale") as Locale | null;
-
-    if (stored) {
-      setLocale(stored);
-    } else {
-      const browserLang = navigator.language.toLowerCase();
-
-      if (browserLang.startsWith("pt")) {
-        setLocale("pt");
-      }
-    }
-
-    setMounted(true);
-  }, []);
+export function I18nProvider({
+  children,
+  initialLocale,
+}: {
+  children: React.ReactNode;
+  initialLocale: Locale;
+}) {
+  const [locale, setLocale] = useState<Locale>(initialLocale);
 
   const changeLocale = (l: Locale) => {
     setLocale(l);
-    localStorage.setItem("locale", l);
+    document.cookie = `locale=${l}; path=/`;
   };
 
   const t = (key: TranslationKey): string => {
@@ -64,10 +53,6 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
     return typeof value === "string" ? value : key;
   };
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <I18nContext.Provider value={{ locale, changeLocale, t }}>
