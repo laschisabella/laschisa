@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import WorkPage from "./work/page";
 import StackPage from "./stack/page";
 import ContactPage from "./contact/page";
+import { Waves } from "@/components/ui/wave-background"
 
 function Hero() {
   return (
@@ -37,9 +38,18 @@ function Hero() {
   );
 }
 
+function WavesBg() {
+  return (
+    <div className="fixed inset-0 w-full h-full opacity-10 -z-10">
+      <Waves className="w-full h-full" />
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <>
+      <WavesBg />
       <Hero />
       <WorkPage />
       <StackPage />
