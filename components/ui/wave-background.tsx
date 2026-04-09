@@ -154,8 +154,8 @@ export function Waves({
 
     // Mouse handler
     const onMouseMove = (e: MouseEvent) => {
-        updateMousePosition(e.pageX, e.pageY)
-    }
+    updateMousePosition(e.clientX, e.clientY)
+}
 
     // Touch handler
     const onTouchMove = (e: TouchEvent) => {
@@ -165,28 +165,25 @@ export function Waves({
     }
 
     // Update mouse position
-    const updateMousePosition = (x: number, y: number) => {
-        if (!boundingRef.current) return
+const updateMousePosition = (x: number, y: number) => {
+    const mouse = mouseRef.current
 
-        const mouse = mouseRef.current
-        mouse.x = x - boundingRef.current.left
-        mouse.y = y - boundingRef.current.top + window.scrollY
+    mouse.x = x
+    mouse.y = y
 
-        if (!mouse.set) {
-            mouse.sx = mouse.x
-            mouse.sy = mouse.y
-            mouse.lx = mouse.x
-            mouse.ly = mouse.y
-
-            mouse.set = true
-        }
-
-        // Update CSS variables
-        if (containerRef.current) {
-            containerRef.current.style.setProperty('--x', `${mouse.sx}px`)
-            containerRef.current.style.setProperty('--y', `${mouse.sy}px`)
-        }
+    if (!mouse.set) {
+        mouse.sx = mouse.x
+        mouse.sy = mouse.y
+        mouse.lx = mouse.x
+        mouse.ly = mouse.y
+        mouse.set = true
     }
+
+    if (containerRef.current) {
+        containerRef.current.style.setProperty('--x', `${mouse.sx}px`)
+        containerRef.current.style.setProperty('--y', `${mouse.sy}px`)
+    }
+}
 
     // Move points - smoother wave motion
     const movePoints = (time: number) => {
@@ -310,7 +307,6 @@ export function Waves({
             className={`waves-component relative overflow-hidden ${className}`}
             style={{
                 backgroundColor,
-                position: 'absolute',
                 top: 0,
                 left: 0,
                 margin: 0,

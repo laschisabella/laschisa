@@ -23,16 +23,16 @@ function ThemeToggle() {
       className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-neutral-200 dark:bg-neutral-800 cursor-pointer"
     >
       <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={isDark ? "moon" : "sun"}
-            initial={{ rotate: -90, scale: 0 }}
-            animate={{ rotate: 0, scale: 1 }}
-            exit={{ rotate: 90, scale: 0 }}
-            transition={{ duration: 0.3 }}
-            className="text-lg"
-          >
-            {isDark ? <Moon /> : <Sun />}
-          </motion.span>
+        <motion.span
+          key={isDark ? "moon" : "sun"}
+          initial={{ rotate: -90, scale: 0 }}
+          animate={{ rotate: 0, scale: 1 }}
+          exit={{ rotate: 90, scale: 0 }}
+          transition={{ duration: 0.3 }}
+          className="text-lg"
+        >
+          {isDark ? <Moon /> : <Sun />}
+        </motion.span>
       </AnimatePresence>
     </button>
   );
@@ -53,10 +53,10 @@ function LanguageToggle() {
         layout
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
         className="absolute top-1 bottom-1 w-1/2 rounded-full bg-secondary/20 shadow"
-        style={{ left: active === "en" ? "4px" : "calc(47%)", }}
+        style={{ left: active === "en" ? "4px" : "calc(47%)" }}
       />
 
-      <button 
+      <button
         onClick={() => handleChange("en")}
         className={`relative z-10 px-4 py-1 text-sm cursor-pointer ${
           active === "en" ? "text-primary font-bold" : "text-muted-foreground"
@@ -88,13 +88,19 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full flex justify-between px-10 md:px-20 h-[8vh] items-center fixed bg-background z-50">
-      <div className="text-primary/70 text-sm tracking-widest uppercase font-bold flex gap-3 items-center">
-        <CodeXml className="text-accent/70"/>
-        <p>laschisa.dev</p>
-      </div>
-      <nav className="ml-[7%]">
-        <ul className="flex space-x-6">
+    <motion.header
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      viewport={{ once: false }}
+      className="w-full max-w-7xl fixed left-1/2 -translate-x-1/2 flex justify-between px-10 md:px-20 h-[8vh] items-center z-50"
+    >
+      <nav className="flex gap-10 items-center px-4 py-2 rounded-xl backdrop-blur-2xl">
+        <div className="text-primary/70 text-sm tracking-widest uppercase font-bold flex gap-3 items-center relative top-0.5">
+          <CodeXml className="text-accent/70" />
+          <p>laschisa.dev</p>
+        </div>
+        <ul className="flex space-x-3">
           {sections.map((id) => {
             const key = `nav.${id.toLowerCase()}` as NavKey;
             return (
@@ -115,7 +121,7 @@ export default function Header() {
                     transition={{
                       type: "spring",
                       stiffness: 500,
-                      damping: 30,
+                      damping: 25,
                     }}
                   />
                 )}
@@ -131,6 +137,6 @@ export default function Header() {
           Download Resume
         </Button>
       </div>
-    </header>
+    </motion.header>
   );
 }

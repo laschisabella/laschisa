@@ -1,3 +1,5 @@
+"use client"
+
 import {
   ChevronRightCircle,
   CloudCogIcon,
@@ -6,6 +8,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import me from "@/public/me.png";
+import { motion } from "framer-motion";
+import CountUp from "@/components/CountUp";
 
 type StackItem = {
   title: string;
@@ -13,6 +17,7 @@ type StackItem = {
   icon: React.ElementType;
   highlight?: boolean;
   items: string[];
+  bg: string;
 };
 
 const STACK: StackItem[] = [
@@ -27,6 +32,7 @@ const STACK: StackItem[] = [
       "Tailwind CSS",
       "Three.js (WebGL)",
     ],
+    bg: "bg-card/60",
   },
   {
     title: "Backend",
@@ -35,6 +41,7 @@ const STACK: StackItem[] = [
     icon: ServerCogIcon,
     highlight: true,
     items: ["Go (Golang)", "Node.js", "PostgreSQL", "gRPC & GraphQL"],
+    bg: "bg-card/60",
   },
   {
     title: "Cloud & DevOps",
@@ -47,6 +54,7 @@ const STACK: StackItem[] = [
       "Github Actions / CI",
       "Prometheus & Grafana",
     ],
+    bg: "bg-card/60",
   },
 ];
 
@@ -63,10 +71,10 @@ function SectionHeader() {
   );
 }
 
-function StackCard({ title, description, icon: Icon, items, highlight, }: StackItem) {
+function StackCard({ title, description, icon: Icon, items, highlight, bg }: StackItem) {
   return (
     <div
-      className={`rounded-[20px] p-10 flex flex-col bg-secondary/5 ${
+      className={`rounded-[20px] p-10 flex flex-col ${bg} ${
         highlight ? "border-t-8 border-primary" : ""
       }`}
     >
@@ -94,17 +102,18 @@ function StackCard({ title, description, icon: Icon, items, highlight, }: StackI
 
 function Stats() {
   const stats = [
-    { value: "6+", label: "years exp", color: "text-primary/60" },
-    { value: "40+", label: "products", color: "text-secondary/60" },
-    { value: "12k+", label: "commits", color: "text-accent/60" },
+    { value: 6, suffix: "+", label: "years exp", color: "text-primary/60" },
+    { value: 40, suffix: "+", label: "products", color: "text-secondary/60" },
+    { value: 12000, suffix: "+", label: "commits", color: "text-accent/60" },
   ];
 
   return (
-    <div className="mt-10 flex justify-end gap-14">
+    <div className="mt-10 flex justify-center gap-14">
       {stats.map((stat) => (
         <div key={stat.label} className="flex flex-col">
           <span className={`${stat.color} text-3xl font-semibold`}>
-            {stat.value}
+            <CountUp to={stat.value} />
+            {stat.suffix}
           </span>
           <span className="text-xs text-zinc-800 font-bold tracking-widest uppercase">
             {stat.label}
@@ -117,12 +126,12 @@ function Stats() {
 
 function AboutSection() {
   return (
-    <section className="bg-secondary/5 w-full mt-8 rounded-[20px] flex gap-10 p-12 items-center">
+    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex gap-10 p-12 items-center">
       <div className="bg-accent rounded-[20px] w-[50%] overflow-hidden">
         <Image
           src={me}
           alt="Work"
-          className="h-full rounded-[20px] opacity-70 relative -top-5"
+          className="h-full rounded-[20px] opacity-60 relative -top-5"
         />
       </div>
 
@@ -161,12 +170,29 @@ export default function StackPage() {
       <SectionHeader />
 
       <section className="flex gap-10">
-        {STACK.map((stack) => (
-          <StackCard key={stack.title} {...stack} />
+        {STACK.map((stack, i) => (
+          <motion.div
+            key={stack.title}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
+            viewport={{ once: false }}
+            className="z-10"
+          >
+            <StackCard {...stack} />
+          </motion.div>
         ))}
       </section>
 
-      <AboutSection />
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.3 }}
+        viewport={{ once: false }}
+        className="z-10"
+      >
+        <AboutSection />
+      </motion.div>
     </section>
   );
 }
