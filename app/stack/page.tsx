@@ -140,9 +140,9 @@ function AboutSection() {
           beyond the code
         </span>
 
-        <h2 className="font-semibold text-3xl text-zinc-800 my-3">
+        <h1 className="font-semibold text-secondary text-3xl my-3">
           Building with intentionality.
-        </h2>
+        </h1>
 
         <p className="mb-3">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam

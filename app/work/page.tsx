@@ -35,7 +35,7 @@ export default function WorkPage() {
             <span className="uppercase text-xs tracking-widest font-bold text-primary/70">
               fintech infrastructuressss
             </span>
-            <h2 className="text-3xl font-semibold my-3 text-zinc-700">
+            <h2 className="text-3xl font-semibold my-3">
               Global Checkout Infrastructure
             </h2>
             <p className="text-zinc-500">
@@ -84,7 +84,7 @@ export default function WorkPage() {
               <span className="uppercase text-xs tracking-widest font-bold text-primary/70">
                 fintech infrastructure
               </span>
-              <h2 className="text-3xl font-semibold my-3 text-zinc-700">
+              <h2 className="text-3xl font-semibold my-3">
                 Global Checkout Infrastructure
               </h2>
               <p className="text-zinc-500">
@@ -132,7 +132,7 @@ export default function WorkPage() {
               <span className="uppercase text-xs tracking-widest font-bold text-primary/60">
                 fintech infrastructure
               </span>
-              <h2 className="text-3xl font-semibold my-3 text-zinc-700">
+              <h2 className="text-3xl font-semibold my-3">
                 Global Checkout Infrastructure
               </h2>
               <p className="text-zinc-500">

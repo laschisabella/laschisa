@@ -36,7 +36,7 @@ function InputField({ label, name, placeholder, icon, register, error, }: BaseFi
       </InputGroup>
 
       {error && (
-        <FieldDescription className="pt-1 left-2 text-red-800">
+        <FieldDescription className="pt-1 left-2 text-red-800 dark:text-red-500">
           {error.message}
         </FieldDescription>
       )}
@@ -63,7 +63,7 @@ function TextareaField({ label, name, placeholder, icon, register, error, }: Bas
       </InputGroup>
 
       {error && (
-        <FieldDescription className="pt-1 left-2 text-red-800">
+        <FieldDescription className="pt-1 left-2 text-red-800 dark:text-red-500">
           {error.message}
         </FieldDescription>
       )}

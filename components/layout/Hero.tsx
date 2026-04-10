@@ -27,7 +27,7 @@ export default function Hero() {
           viewport={{ once: false }}
           className="text-6xl font-semibold text-center my-5"
         >
-          <h1 className="text-zinc-800">Engineering Scalable</h1>
+          <h1>Engineering Scalable</h1>
           <h1 className="text-primary">Digital Systems.</h1>
         </motion.div>
 
@@ -36,7 +36,7 @@ export default function Hero() {
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           viewport={{ once: false }}
-          className="text-center text-zinc-500 text-lg"
+          className="text-center text-lg"
         >
           <h4>
             Specializing in high-performance infrastructure and distributed

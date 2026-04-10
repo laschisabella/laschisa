@@ -48,7 +48,7 @@ export default function Footer() {
           </a>
 
           <a
-            href="https://github.com/seu-repo"
+            href="https://github.com/laschisabella/laschisa"
             target="_blank"
             rel="noopener noreferrer"
           >
