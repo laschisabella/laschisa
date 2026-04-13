@@ -28,7 +28,7 @@ export default function WorkPage() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
           viewport={{ once: false }}
-          className="flex bg-card/70 p-5 rounded-[20px] items-center mb-10 z-10"
+          className="flex flex-col md:flex-row bg-card/70 p-5 rounded-[20px] items-center mb-10 z-10"
         >
           <Image src={work1} alt="Work 1" className="w-[65%] h-full" />
           <div className="w-[35%] mr-10">
@@ -44,7 +44,7 @@ export default function WorkPage() {
               sapiente labore. Vitae eligendi sed quos molestiae iste ipsa,
               tempore alias animi.
             </p>
-            <ul className="flex gap-3 my-5 pb-2">
+            <ul className="flex flex-wrap gap-3 my-5 pb-2">
               <li className="px-3 py-1 bg-white rounded-lg text-zinc-600">
                 React
               </li>
@@ -71,7 +71,7 @@ export default function WorkPage() {
           </div>
         </motion.div>
 
-        <div className="flex gap-10 max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row gap-10 max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

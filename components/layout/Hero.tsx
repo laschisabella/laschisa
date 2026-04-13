@@ -25,7 +25,7 @@ export default function Hero() {
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
           viewport={{ once: false }}
-          className="text-6xl font-semibold text-center my-5"
+          className="text-4xl md:text-6xl font-semibold text-center my-5"
         >
           <h1>Engineering Scalable</h1>
           <h1 className="text-primary">Digital Systems.</h1>
@@ -36,7 +36,7 @@ export default function Hero() {
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           viewport={{ once: false }}
-          className="text-center text-lg"
+          className="text-center md:text-lg"
         >
           <h4>
             Specializing in high-performance infrastructure and distributed

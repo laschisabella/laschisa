@@ -126,7 +126,7 @@ function Stats() {
 
 function AboutSection() {
   return (
-    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex gap-10 p-12 items-center">
+    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col md:flex-row gap-10 p-12 items-center">
       <div className="bg-accent rounded-[20px] w-[50%] overflow-hidden">
         <Image
           src={me}
@@ -169,7 +169,7 @@ export default function StackPage() {
     <section id="Stack" className="min-h-screen max-w-6xl mx-auto flex flex-col mt-20">
       <SectionHeader />
 
-      <section className="flex gap-10">
+      <section className="flex flex-col md:flex-row gap-10">
         {STACK.map((stack, i) => (
           <motion.div
             key={stack.title}

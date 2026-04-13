@@ -125,16 +125,16 @@ export default function ContactPage() {
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex md:gap-20 items-center"
+        className="flex flex-col md:flex-row md:gap-20 items-center"
       >
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
           viewport={{ once: false }}
-          className="w-[50%] flex flex-col gap-10 ml-4"
+          className="md:w-[50%] flex flex-col md:gap-10 ml-4"
         >
-          <h1 className="text-5xl font-semibold mb-3 leading-14">
+          <h1 className="text-4xl md:text-5xl font-semibold mb-3 md:leading-14">
             Let&apos;s architect the
             <span className="text-primary"> next standard</span> of digital engineering.
           </h1>
@@ -165,7 +165,7 @@ export default function ContactPage() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
           viewport={{ once: false }}
-          className="w-[50%] bg-card/60 rounded-[20px] p-10 flex flex-col gap-10 z-10"
+          className="md:w-[50%] my-10 md:my-0 bg-card/60 rounded-[20px] p-10 flex flex-col gap-10 z-10"
         >
           <InputField
             label="full name"
