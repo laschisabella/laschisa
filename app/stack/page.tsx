@@ -121,7 +121,7 @@ function Stats() {
     <div className="mt-10 flex flex-wrap justify-center gap-5 md:gap-14">
       {stats.map((stat) => (
         <div key={stat.label} className="flex flex-col items-center min-w-0">
-          <span className={`${stat.color} text-3xl font-semibold`}>
+          <span className={`${stat.color} text-xl md:text-3xl font-semibold`}>
             <CountUp to={stat.value} />
             {stat.suffix}
           </span>
