@@ -14,6 +14,12 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   title: "laschisa.dev",
   description: "Engineering scalable digital systems with a focus on reliability, performance, and security.",
+  themeColor: 'transparent',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    viewportFit: 'cover',
+  },
 };
 
 export default async function RootLayout({
