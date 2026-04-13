@@ -7,7 +7,7 @@ export default function Hero() {
   return (
     <section
       id="About"
-      className="min-h-screen flex flex-col justify-between px-10 md:px-20"
+      className="min-h-[92vh] md:min-h-screen flex flex-col justify-between px-10 md:px-20"
     >
       <div className="flex flex-col gap-3 items-center justify-center flex-1">
         <motion.span

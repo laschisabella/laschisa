@@ -126,8 +126,8 @@ function Stats() {
 
 function AboutSection() {
   return (
-    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col md:flex-row gap-10 p-12 items-center">
-      <div className="bg-accent rounded-[20px] w-[50%] overflow-hidden">
+    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col mx-3 md:mx-0 md:flex-row gap-10 p-12 items-center">
+      <div className="bg-accent rounded-[20px] md:w-[50%] overflow-hidden">
         <Image
           src={me}
           alt="Work"
@@ -135,7 +135,7 @@ function AboutSection() {
         />
       </div>
 
-      <div className="w-[50%] text-zinc-500">
+      <div className="md:w-[50%] text-zinc-500">
         <span className="uppercase text-xs text-primary tracking-widest font-bold">
           beyond the code
         </span>

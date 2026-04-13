@@ -30,8 +30,8 @@ export default function WorkPage() {
           viewport={{ once: false }}
           className="flex flex-col md:flex-row bg-card/70 p-5 rounded-[20px] items-center mb-10 z-10"
         >
-          <Image src={work1} alt="Work 1" className="w-[65%] h-full" />
-          <div className="w-[35%] mr-10">
+          <Image src={work1} alt="Work 1" className="md:w-[65%] h-full" />
+          <div className="md:w-[35%] mr-10">
             <span className="uppercase text-xs tracking-widest font-bold text-primary/70">
               fintech infrastructuressss
             </span>

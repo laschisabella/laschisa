@@ -96,7 +96,7 @@ export default function Header() {
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
         viewport={{ once: false }}
-        className="w-full max-w-7xl fixed top-2 md:top-0 left-1/2 -translate-x-1/2 flex justify-between px-4 sm:px-6 md:px-12 lg:px-20 h-[8vh] items-center z-50"
+        className="w-full max-w-7xl relative md:fixed top-2 md:top-0 md:left-1/2 md:-translate-x-1/2 flex justify-between px-4 sm:px-6 md:px-12 lg:px-20 h-[8vh] items-center z-50"
       >
         <nav className="flex gap-6 items-center px-4 py-2 rounded-xl backdrop-blur-2xl">
           <div className="text-primary/70 text-xs sm:text-sm tracking-widest uppercase font-bold flex gap-2 sm:gap-3 items-center relative top-0.5">
@@ -140,7 +140,7 @@ export default function Header() {
           <ThemeToggle />
 
           <Button
-            size="sm"
+            size="lg"
             variant="default"
             className="hidden sm:inline-flex"
           >
