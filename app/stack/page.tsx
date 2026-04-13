@@ -118,14 +118,14 @@ function Stats() {
   ];
 
   return (
-    <div className="mt-10 flex flex-wrap justify-center gap-10 md:gap-14">
+    <div className="mt-10 flex flex-wrap justify-center gap-5 md:gap-14">
       {stats.map((stat) => (
         <div key={stat.label} className="flex flex-col items-center min-w-0">
           <span className={`${stat.color} text-3xl font-semibold`}>
             <CountUp to={stat.value} />
             {stat.suffix}
           </span>
-          <span className="text-xs text-zinc-800 font-bold tracking-widest uppercase text-center break-words">
+          <span className="text-xs font-bold tracking-widest uppercase text-center break-words">
             {stat.label}
           </span>
         </div>
@@ -136,7 +136,7 @@ function Stats() {
 
 function AboutSection() {
   return (
-    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col mx-3 md:mx-0 md:flex-row gap-10 p-6 md:p-12 items-center overflow-hidden">
+    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col md:flex-row gap-10 p-6 md:p-12 items-center overflow-hidden">
       <div className="bg-accent rounded-[20px] md:w-[50%] w-full overflow-hidden">
         <Image
           src={me}

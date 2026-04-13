@@ -190,7 +190,7 @@ export default function ContactPage() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
           viewport={{ once: false }}
-          className="md:w-[50%] w-full my-10 md:my-0 bg-card/60 rounded-[20px] p-6 md:p-10 flex flex-col gap-10 z-10 min-w-0"
+          className="md:w-[50%] w-full my-10 md:my-0 bg-card/60 rounded-[20px] p-6 md:p-10 flex flex-col gap-5 md:gap-10 z-10 min-w-0"
         >
           <InputField
             label="full name"

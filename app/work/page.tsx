@@ -23,7 +23,7 @@ export default function WorkPage() {
   return (
     <section
       id="Work"
-      className="min-h-screen flex flex-col max-w-6xl mx-auto overflow-hidden"
+      className="min-h-screen flex flex-col max-w-6xl mx-auto overflow-hidden px-4"
     >
       <SectionHeader />
 
