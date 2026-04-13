@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { createNoise2D } from 'simplex-noise'
 
 interface Point {
@@ -53,14 +53,13 @@ export function Waves({
 
   const pathsRef = useRef<SVGPathElement[]>([])
   const linesRef = useRef<Point[][]>([])
-  const noiseRef = useRef<((x: number, y: number) => number) | null>(null)
+  const noiseRef = useRef(createNoise2D())
   const rafRef = useRef<number | null>(null)
   const boundingRef = useRef<DOMRect | null>(null)
 
   const strokeColor = isDark ? strokeColorDark : strokeColorLight
   const backgroundColor = isDark ? backgroundColorDark : backgroundColorLight
 
-  // detect dark mode
   useEffect(() => {
     const updateTheme = () => {
       setIsDark(document.documentElement.classList.contains('dark'))
@@ -74,54 +73,23 @@ export function Waves({
     return () => observer.disconnect()
   }, [])
 
-  // update existing paths color when theme changes
-  useEffect(() => {
-    pathsRef.current.forEach(path => {
-      path.setAttribute('stroke', strokeColor)
-    })
-  }, [strokeColor])
-
-  // Initialization
-  useEffect(() => {
+  const setSize = useCallback(() => {
     if (!containerRef.current || !svgRef.current) return
 
-    noiseRef.current = createNoise2D()
+    const rect = containerRef.current.getBoundingClientRect()
+    boundingRef.current = rect
 
-    setSize()
-    setLines()
-
-    window.addEventListener('resize', onResize)
-    window.addEventListener('mousemove', onMouseMove)
-    containerRef.current.addEventListener('touchmove', onTouchMove, { passive: false })
-
-    rafRef.current = requestAnimationFrame(tick)
-
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-      window.removeEventListener('resize', onResize)
-      window.removeEventListener('mousemove', onMouseMove)
-      containerRef.current?.removeEventListener('touchmove', onTouchMove)
-    }
+    svgRef.current.style.width = `${rect.width}px`
+    svgRef.current.style.height = `${rect.height}px`
   }, [])
 
-  const setSize = () => {
-    if (!containerRef.current || !svgRef.current) return
-
-    boundingRef.current = containerRef.current.getBoundingClientRect()
-    const { width, height } = boundingRef.current
-
-    svgRef.current.style.width = `${width}px`
-    svgRef.current.style.height = `${height}px`
-  }
-
-  const setLines = () => {
+  const setLines = useCallback(() => {
     if (!svgRef.current || !boundingRef.current) return
 
     const { width, height } = boundingRef.current
-    linesRef.current = []
-
-    pathsRef.current.forEach(path => path.remove())
+    pathsRef.current.forEach(p => p.remove())
     pathsRef.current = []
+    linesRef.current = []
 
     const xGap = 8
     const yGap = 8
@@ -156,22 +124,12 @@ export function Waves({
       pathsRef.current.push(path)
       linesRef.current.push(points)
     }
-  }
+  }, [strokeColor])
 
-  const onResize = () => {
+  const onResize = useCallback(() => {
     setSize()
     setLines()
-  }
-
-  const onMouseMove = (e: MouseEvent) => {
-    updateMousePosition(e.clientX, e.clientY)
-  }
-
-  const onTouchMove = (e: TouchEvent) => {
-    e.preventDefault()
-    const touch = e.touches[0]
-    updateMousePosition(touch.clientX, touch.clientY)
-  }
+  }, [setSize, setLines])
 
   const updateMousePosition = (x: number, y: number) => {
     const mouse = mouseRef.current
@@ -194,12 +152,9 @@ export function Waves({
   }
 
   const movePoints = (time: number) => {
-    const lines = linesRef.current
-    const mouse = mouseRef.current
     const noise = noiseRef.current
-    if (!noise) return
 
-    lines.forEach(points => {
+    linesRef.current.forEach(points => {
       points.forEach(p => {
         const move = noise(
           (p.x + time * 0.008) * 0.003,
@@ -209,6 +164,7 @@ export function Waves({
         p.wave.x = Math.cos(move) * 12
         p.wave.y = Math.sin(move) * 6
 
+        const mouse = mouseRef.current
         const dx = p.x - mouse.sx
         const dy = p.y - mouse.sy
         const d = Math.hypot(dx, dy)
@@ -230,29 +186,20 @@ export function Waves({
 
         p.cursor.x += p.cursor.vx
         p.cursor.y += p.cursor.vy
-
-        p.cursor.x = Math.min(50, Math.max(-50, p.cursor.x))
-        p.cursor.y = Math.min(50, Math.max(-50, p.cursor.y))
       })
     })
   }
 
-  const moved = (point: Point, withCursorForce = true) => ({
-    x: point.x + point.wave.x + (withCursorForce ? point.cursor.x : 0),
-    y: point.y + point.wave.y + (withCursorForce ? point.cursor.y : 0),
-  })
-
   const drawLines = () => {
     linesRef.current.forEach((points, i) => {
       const path = pathsRef.current[i]
-      if (!path || points.length < 2) return
+      if (!path) return
 
-      const first = moved(points[0], false)
-      let d = `M ${first.x} ${first.y}`
+      let d = `M ${points[0].x} ${points[0].y}`
 
       for (let j = 1; j < points.length; j++) {
-        const p = moved(points[j])
-        d += `L ${p.x} ${p.y}`
+        const p = points[j]
+        d += `L ${p.x + p.wave.x + p.cursor.x} ${p.y + p.wave.y + p.cursor.y}`
       }
 
       path.setAttribute('d', d)
@@ -282,6 +229,32 @@ export function Waves({
 
     rafRef.current = requestAnimationFrame(tick)
   }
+  
+  useEffect(() => {
+    if (!containerRef.current || !svgRef.current) return
+
+    setSize()
+    setLines()
+
+    window.addEventListener('resize', onResize)
+
+    window.addEventListener('mousemove', e =>
+      updateMousePosition(e.clientX, e.clientY)
+    )
+
+    containerRef.current.addEventListener('touchmove', e => {
+      e.preventDefault()
+      const t = e.touches[0]
+      updateMousePosition(t.clientX, t.clientY)
+    }, { passive: false })
+
+    rafRef.current = requestAnimationFrame(tick)
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [setLines, setSize, onResize])
 
   return (
     <div
