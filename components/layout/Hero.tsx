@@ -7,9 +7,9 @@ export default function Hero() {
   return (
     <section
       id="About"
-      className="min-h-[92vh] md:min-h-screen flex flex-col justify-between px-10 md:px-20"
+      className="min-h-[92vh] md:min-h-screen flex flex-col justify-between px-5 md:px-20 overflow-hidden"
     >
-      <div className="flex flex-col gap-3 items-center justify-center flex-1">
+      <div className="flex flex-col gap-3 items-center justify-center flex-1 min-w-0">
         <motion.span
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -53,7 +53,7 @@ export default function Hero() {
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
           viewport={{ once: false }}
-          className="flex items-center my-5 gap-3"
+          className="flex flex-wrap justify-center items-center my-5 gap-3"
         >
           <Button
             size="xl"

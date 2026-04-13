@@ -20,12 +20,12 @@ function WavesBg() {
 
 export default function Home() {
   return (
-    <div className="overflow-hidden md:overflow-auto">
+    <>
       <WavesBg />
       <Hero />
       <WorkPage />
       <StackPage />
       <ContactPage />
-    </div>
+    </>
   );
 }

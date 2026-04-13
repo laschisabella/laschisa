@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   ChevronRightCircle,
@@ -60,10 +60,10 @@ const STACK: StackItem[] = [
 
 function SectionHeader() {
   return (
-    <header className="mt-10 md:mt-20 mb-10 md:mb-16 relative left-2">
+    <header className="mt-10 md:mt-20 mb-10 md:mb-16 ml-2">
       <h1 className="text-3xl font-semibold mb-3">Tech Stack</h1>
       <div className="h-1.5 w-20 bg-primary" />
-      <p className="text-zinc-500 my-3">
+      <p className="text-zinc-500 my-3 break-words">
         Engineering scalable systems with intentional architecture and modern
         primitives.
       </p>
@@ -71,19 +71,29 @@ function SectionHeader() {
   );
 }
 
-function StackCard({ title, description, icon: Icon, items, highlight, bg }: StackItem) {
+function StackCard({
+  title,
+  description,
+  icon: Icon,
+  items,
+  highlight,
+  bg,
+}: StackItem) {
   return (
     <div
-      className={`rounded-[20px] p-10 flex flex-col ${bg} ${
+      className={`rounded-[20px] p-6 md:p-10 flex flex-col ${bg} ${
         highlight ? "border-t-8 border-primary" : ""
-      }`}
+      } min-w-0 break-words`}
     >
       <div className="bg-white/40 p-4 self-start rounded-xl">
         <Icon size={40} className="text-accent" />
       </div>
+
       <h2 className="text-3xl font-semibold mt-8 mb-4">{title}</h2>
-      <p className="text-zinc-500 mb-10">{description}</p>
-      <ul className="text-zinc-500">
+
+      <p className="text-zinc-500 mb-10 break-words">{description}</p>
+
+      <ul className="text-zinc-500 break-words">
         {items.map((item, index) => (
           <li
             key={item}
@@ -91,8 +101,8 @@ function StackCard({ title, description, icon: Icon, items, highlight, bg }: Sta
               index === 0 ? "font-semibold" : ""
             }`}
           >
-            <ChevronRightCircle size={14} className="text-primary" />
-            <span>{item}</span>
+            <ChevronRightCircle size={14} className="text-primary shrink-0" />
+            <span className="break-words">{item}</span>
           </li>
         ))}
       </ul>
@@ -108,14 +118,14 @@ function Stats() {
   ];
 
   return (
-    <div className="mt-10 flex justify-center gap-14">
+    <div className="mt-10 flex flex-wrap justify-center gap-10 md:gap-14">
       {stats.map((stat) => (
-        <div key={stat.label} className="flex flex-col">
+        <div key={stat.label} className="flex flex-col items-center min-w-0">
           <span className={`${stat.color} text-3xl font-semibold`}>
             <CountUp to={stat.value} />
             {stat.suffix}
           </span>
-          <span className="text-xs text-zinc-800 font-bold tracking-widest uppercase">
+          <span className="text-xs text-zinc-800 font-bold tracking-widest uppercase text-center break-words">
             {stat.label}
           </span>
         </div>
@@ -126,17 +136,17 @@ function Stats() {
 
 function AboutSection() {
   return (
-    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col mx-3 md:mx-0 md:flex-row gap-10 p-12 items-center">
-      <div className="bg-accent rounded-[20px] md:w-[50%] overflow-hidden">
+    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col mx-3 md:mx-0 md:flex-row gap-10 p-6 md:p-12 items-center overflow-hidden">
+      <div className="bg-accent rounded-[20px] md:w-[50%] w-full overflow-hidden">
         <Image
           src={me}
           alt="Work"
-          className="h-full rounded-[20px] opacity-60 relative -top-5"
+          className="w-full h-auto rounded-[20px] opacity-60 relative -top-5"
         />
       </div>
 
-      <div className="md:w-[50%] text-zinc-500">
-        <span className="uppercase text-xs text-primary tracking-widest font-bold">
+      <div className="md:w-[50%] w-full text-zinc-500 break-words min-w-0">
+        <span className="uppercase text-xs text-primary tracking-widest font-bold break-words">
           beyond the code
         </span>
 
@@ -144,17 +154,17 @@ function AboutSection() {
           Building with intentionality.
         </h1>
 
-        <p className="mb-3">
+        <p className="mb-3 break-words">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam
           veritatis consequuntur, doloribus aut ipsum expedita voluptatibus.
         </p>
 
-        <p className="mb-3">
+        <p className="mb-3 break-words">
           Assumenda dolores corrupti ipsum est, eaque dolore earum corporis
           eligendi nisi expedita odit similique.
         </p>
 
-        <p className="mb-3">
+        <p className="mb-3 break-words">
           Totam veritatis consequuntur, doloribus aut ipsum expedita.
         </p>
 
@@ -166,10 +176,13 @@ function AboutSection() {
 
 export default function StackPage() {
   return (
-    <section id="Stack" className="min-h-screen max-w-6xl mx-auto flex flex-col mt-20">
+    <section
+      id="Stack"
+      className="min-h-screen max-w-6xl mx-auto flex flex-col mt-20 overflow-hidden px-4 md:px-0"
+    >
       <SectionHeader />
 
-      <section className="flex flex-col md:flex-row gap-10">
+      <section className="flex flex-col md:flex-row gap-10 min-w-0">
         {STACK.map((stack, i) => (
           <motion.div
             key={stack.title}
@@ -177,7 +190,7 @@ export default function StackPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
             viewport={{ once: false }}
-            className="z-10"
+            className="z-10 min-w-0"
           >
             <StackCard {...stack} />
           </motion.div>
@@ -189,7 +202,7 @@ export default function StackPage() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.3 }}
         viewport={{ once: false }}
-        className="z-10"
+        className="z-10 min-w-0"
       >
         <AboutSection />
       </motion.div>

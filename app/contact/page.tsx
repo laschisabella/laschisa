@@ -1,6 +1,11 @@
 "use client";
 
-import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupTextarea, } from "@/components/ui/input-group";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupTextarea,
+} from "@/components/ui/input-group";
 import { FieldDescription } from "@/components/ui/field";
 import { Code, Link, Mail, Text, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,22 +26,33 @@ type BaseFieldProps = {
   error?: FieldError;
 };
 
-function InputField({ label, name, placeholder, icon, register, error, }: BaseFieldProps) {
+function InputField({
+  label,
+  name,
+  placeholder,
+  icon,
+  register,
+  error,
+}: BaseFieldProps) {
   return (
-    <div>
-      <span className="uppercase text-xs text-secondary tracking-widest font-bold relative left-2">
+    <div className="min-w-0">
+      <span className="uppercase text-xs text-secondary tracking-widest font-bold ml-2 break-words">
         {label}
       </span>
 
-      <InputGroup className="bg-zinc-100 px-2 py-6 mt-2">
-        <InputGroupInput placeholder={placeholder} {...register(name)} />
-        <InputGroupAddon className="mr-2 text-accent">
+      <InputGroup className="bg-zinc-100 px-2 py-4 mt-2 min-w-0">
+        <InputGroupInput
+          placeholder={placeholder}
+          className="min-w-0"
+          {...register(name)}
+        />
+        <InputGroupAddon className="mr-2 text-accent shrink-0">
           {icon}
         </InputGroupAddon>
       </InputGroup>
 
       {error && (
-        <FieldDescription className="pt-1 left-2 text-red-800 dark:text-red-500">
+        <FieldDescription className="pt-1 ml-2 text-red-800 dark:text-red-500 break-words">
           {error.message}
         </FieldDescription>
       )}
@@ -44,26 +60,33 @@ function InputField({ label, name, placeholder, icon, register, error, }: BaseFi
   );
 }
 
-function TextareaField({ label, name, placeholder, icon, register, error, }: BaseFieldProps) {
+function TextareaField({
+  label,
+  name,
+  placeholder,
+  icon,
+  register,
+  error,
+}: BaseFieldProps) {
   return (
-    <div>
-      <span className="uppercase text-xs text-secondary tracking-widest font-bold relative left-2">
+    <div className="min-w-0">
+      <span className="uppercase text-xs text-secondary tracking-widest font-bold ml-2 break-words">
         {label}
       </span>
 
-      <InputGroup className="bg-zinc-100 px-2 mt-2 items-start max-w-md">
+      <InputGroup className="bg-zinc-100 px-2 mt-2 items-start w-full min-w-0">
         <InputGroupTextarea
-          placeholder={placeholder} 
-          className="relative top-1.5 h-30"
+          placeholder={placeholder}
+          className="relative top-1.5 h-30 min-w-0 w-full"
           {...register(name)}
         />
-        <InputGroupAddon className="mr-2 text-accent mt-3">
+        <InputGroupAddon className="mr-2 text-accent mt-3 shrink-0">
           {icon}
         </InputGroupAddon>
       </InputGroup>
 
       {error && (
-        <FieldDescription className="pt-1 left-2 text-red-800 dark:text-red-500">
+        <FieldDescription className="pt-1 ml-2 text-red-800 dark:text-red-500 break-words">
           {error.message}
         </FieldDescription>
       )}
@@ -75,18 +98,18 @@ const CONTACT_ITEMS = [
   {
     icon: <Mail className="text-secondary" />,
     href: "mailto:laschi.isabella@gmail.com",
-    label: "laschi.isabella@gmail.com"
+    label: "laschi.isabella@gmail.com",
   },
   {
     icon: <Link className="text-secondary" />,
     text: "linkedin.com/in/isabella-laschi",
     href: "https://linkedin.com/in/isabella-laschi",
-    label: "LinkedIn"
+    label: "LinkedIn",
   },
   {
     icon: <Code className="text-secondary" />,
     href: "https://github.com/laschisabella",
-    label: "GitHub"
+    label: "GitHub",
   },
 ];
 
@@ -106,14 +129,16 @@ export default function ContactPage() {
       reset();
       toast.success("Message sent successfully.", {
         unstyled: true,
-        className: "flex gap-5 items-center bg-background text-green-700 border border-green-700 px-4 py-3 rounded-lg font-bold",
+        className:
+          "flex gap-5 items-center bg-background text-green-700 border border-green-700 px-4 py-3 rounded-lg font-bold",
       });
     } catch (e: unknown) {
       const err = e as EmailJSResponseStatus;
 
       toast.error("Failed to send message: " + err.text, {
         unstyled: true,
-        className: "flex gap-5 items-center bg-background text-red-700 border border-red-700 px-4 py-3 rounded-lg font-bold",
+        className:
+          "flex gap-5 items-center bg-background text-red-700 border border-red-700 px-4 py-3 rounded-lg font-bold",
       });
     }
   };
@@ -121,37 +146,37 @@ export default function ContactPage() {
   return (
     <section
       id="Contact"
-      className="max-w-6xl min-h-[90vh] mx-auto flex justify-center items-center p-5 mt-5"
+      className="max-w-6xl min-h-[90vh] mx-auto flex justify-center items-center p-4 md:p-5 mt-5 overflow-hidden"
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col md:flex-row md:gap-20 items-center"
+        className="flex flex-col md:flex-row md:gap-20 items-center w-full min-w-0"
       >
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
           viewport={{ once: false }}
-          className="md:w-[50%] flex flex-col md:gap-10 ml-4"
+          className="md:w-[50%] w-full flex flex-col md:gap-10 ml-0 md:ml-4 min-w-0"
         >
-          <h1 className="text-4xl md:text-5xl font-semibold mb-3 md:leading-14">
+          <h1 className="text-4xl md:text-5xl font-semibold mb-3 break-words">
             Let&apos;s architect the
             <span className="text-primary"> next standard</span> of digital engineering.
           </h1>
 
-          <p className="text-zinc-500">
+          <p className="text-zinc-500 break-words">
             Currently open for senior full-stack engineering roles and strategic consulting.
           </p>
 
-          <ul className="flex flex-col gap-5 mt-5">
+          <ul className="flex flex-col gap-5 mt-5 min-w-0">
             {CONTACT_ITEMS.map((item, i) => (
-              <li key={i} className="flex gap-5 items-center z-10">
+              <li key={i} className="flex gap-5 items-center z-10 min-w-0">
                 {item.icon}
                 <a
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-2 text-zinc-500 font-bold hover:underline"
+                  className="ml-2 text-zinc-500 font-bold hover:underline break-words"
                 >
                   {item.label}
                 </a>
@@ -165,7 +190,7 @@ export default function ContactPage() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
           viewport={{ once: false }}
-          className="md:w-[50%] my-10 md:my-0 bg-card/60 rounded-[20px] p-10 flex flex-col gap-10 z-10"
+          className="md:w-[50%] w-full my-10 md:my-0 bg-card/60 rounded-[20px] p-6 md:p-10 flex flex-col gap-10 z-10 min-w-0"
         >
           <InputField
             label="full name"
@@ -196,7 +221,7 @@ export default function ContactPage() {
 
           <Button
             type="submit"
-            className="w-fit"
+            className="w-full md:w-fit"
             size="xl"
             variant="accent"
             disabled={isSubmitting}
