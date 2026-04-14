@@ -4,9 +4,16 @@ import { useActiveSection } from "@/hooks/useActiveSection";
 import { Button } from "../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "@/providers/ThemeProvider";
-import { CodeXml, Moon, Sun, Menu, X } from "lucide-react";
+import { CodeXml, Moon, Sun, MenuIcon } from "lucide-react";
 import { useI18n } from "@/hooks/useI18n";
 import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 const sections = ["About", "Work", "Stack", "Contact"] as const;
 type Section = (typeof sections)[number];
@@ -48,7 +55,7 @@ function LanguageToggle() {
   };
 
   return (
-    <div className="relative hidden sm:flex w-fit rounded-full bg-muted p-1">
+    <div className="relative flex w-fit rounded-full bg-muted p-1">
       <motion.div
         layout
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
@@ -80,13 +87,14 @@ function LanguageToggle() {
 export default function Header() {
   const active = useActiveSection(sections);
   const { t } = useI18n();
-  const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: "smooth" });
     });
-    setIsOpen(false);
   };
 
   return (
@@ -104,7 +112,7 @@ export default function Header() {
             <p>laschisa.dev</p>
           </div>
 
-          <ul className="hidden md:flex space-x-3">
+          <ul className="hidden lg:flex space-x-3">
             {sections.map((id) => {
               const key = `nav.${id.toLowerCase()}` as NavKey;
               return (
@@ -139,54 +147,52 @@ export default function Header() {
           <LanguageToggle />
           <ThemeToggle />
 
-          <Button
-            size="lg"
-            variant="default"
-            className="hidden sm:inline-flex"
-          >
+          <Button size="lg" variant="default" className="hidden lg:inline-flex">
             Download Resume
           </Button>
 
-          <button
-            onClick={() => setIsOpen((prev) => !prev)}
-            className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg bg-muted"
-          >
-            {isOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-      </motion.header>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-            className="fixed top-[8vh] left-0 w-full bg-background/95 backdrop-blur-xl z-40 md:hidden"
-          >
-            <ul className="flex flex-col items-center gap-6 py-8">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild className="lg:hidden">
+              <Button>
+                <MenuIcon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="w-46 bg-background/95 relative top-2 right-4"
+              align="start"
+            >
               {sections.map((id) => {
                 const key = `nav.${id.toLowerCase()}` as NavKey;
                 return (
-                  <li key={id}>
-                    <button
-                      onClick={() => handleClick(id)}
-                      className="text-lg font-medium"
-                    >
-                      {t(key)}
-                    </button>
-                  </li>
+                  <DropdownMenuItem
+                    key={id}
+                    className="py-2"
+                    onSelect={() => {
+                      const el = document.getElementById(id);
+                      if (!el) return;
+
+                      setTimeout(() => {
+                        el.scrollIntoView({
+                          behavior: "smooth",
+                          block: "start",
+                        });
+                      }, 0);
+                    }}
+                  >
+                    {t(key)}
+                  </DropdownMenuItem>
                 );
               })}
-
-              <Button size="sm" variant="default">
-                Download Resume
-              </Button>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="flex justify-center">
+                <Button size="sm" variant="default">
+                  Download Resume
+                </Button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </motion.header>
     </>
   );
 }
