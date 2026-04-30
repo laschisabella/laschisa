@@ -162,7 +162,7 @@ export default function ContactPage() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
           viewport={{ once: false }}
-          className="md:w-[50%] w-full flex flex-col justify-between min-w-0"
+          className="md:w-[50%] w-full flex flex-col gap-8 md:gap-0 justify-between min-w-0"
         >
           <ul className="flex flex-col min-w-0 h-[70%]">
             

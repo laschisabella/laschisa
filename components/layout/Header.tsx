@@ -26,7 +26,7 @@ function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-neutral-200 dark:bg-neutral-800 cursor-pointer"
+      className="relative p-3 flex items-center justify-center rounded-full bg-neutral-200 dark:bg-primary/20 cursor-pointer"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
@@ -85,13 +85,14 @@ function LanguageToggle() {
 
 export default function Header() {
   const { t } = useI18n();
+  const [open, setOpen] = useState(false);
 
   return (
     <motion.header
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="w-full mx-auto max-w-6xl relative flex justify-between px-4 h-[8vh] items-center z-50"
+      className="w-full mx-auto max-w-6xl relative flex justify-between mt-4 px-4 h-[8vh] items-center z-50"
     >
       <nav className="w-full flex justify-between gap-2 items-center px-4 py-2">
         <div className="text-secondary text-xs sm:text-sm tracking-widest uppercase font-bold flex gap-2 items-center select-none">
@@ -115,40 +116,71 @@ export default function Header() {
           })}
         </ul>
         <div className="flex gap-2 sm:gap-3 items-center">
-        <LanguageToggle />
-        <ThemeToggle />
+          <div className="gap-3 hidden md:flex">
+            <LanguageToggle />
+            <ThemeToggle />
+          </div>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild className="lg:hidden">
-            <Button>
-              <MenuIcon />
-            </Button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent
-            className="w-46 bg-background/95 relative top-2 right-4"
-            align="start"
-          >
-            {sections.map((id) => {
-              const key = `nav.${id.toLowerCase()}` as NavKey;
-              return (
-                <DropdownMenuItem key={id} asChild>
-                  <a href={`#${id}`}>{t(key)}</a>
-                </DropdownMenuItem>
-              );
-            })}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="flex justify-center">
-              <Button size="sm" variant="default">
-                Download Resume
+          <DropdownMenu open={open} onOpenChange={setOpen}>
+            <DropdownMenuTrigger asChild className="lg:hidden">
+              <Button>
+                <MenuIcon />
               </Button>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      </nav>
+            </DropdownMenuTrigger>
 
-      
+            <DropdownMenuContent
+              className="w-full bg-background/95"
+              align="end"
+              sideOffset={10}
+              avoidCollisions={false}
+            >
+              <div className="flex justify-between md:hidden p-3 gap-5">
+                <ThemeToggle />
+                <LanguageToggle />
+              </div>
+              <DropdownMenuSeparator className="bg-secondary/20 md:hidden" />
+              {sections.map((id) => {
+                const key = `nav.${id.toLowerCase()}` as NavKey;
+                return (
+                  <DropdownMenuItem
+                    key={id}
+                    className="py-2 text-lg text-gray-700 dark:text-gray-100"
+                    asChild
+                  >
+                    <a
+                      href={`#${id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+
+                        setOpen(false);
+
+                        setTimeout(() => {
+                          document.body.style.overflow = "";
+
+                          const el = document.getElementById(id);
+                          if (!el) return;
+
+                          const y =
+                            el.getBoundingClientRect().top +
+                            window.pageYOffset -
+                            80;
+
+                          window.scrollTo({
+                            top: y,
+                            behavior: "smooth",
+                          });
+                        }, 50);
+                      }}
+                    >
+                      {t(key)}
+                    </a>
+                  </DropdownMenuItem>
+                );
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </nav>
     </motion.header>
   );
 }
