@@ -7,7 +7,7 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import { FieldDescription } from "@/components/ui/field";
-import { Code, Link, Mail, Text, User } from "lucide-react";
+import { AtSign, Code, Link, Mail, Text, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useForm, FieldError, UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,6 +16,7 @@ import { sendContactEmail } from "@/services/email";
 import { toast } from "sonner";
 import { EmailJSResponseStatus } from "emailjs-com";
 import { motion } from "framer-motion";
+import Title from "@/components/Title";
 
 type BaseFieldProps = {
   label: string;
@@ -36,11 +37,11 @@ function InputField({
 }: BaseFieldProps) {
   return (
     <div className="min-w-0">
-      <span className="uppercase text-xs text-secondary tracking-widest font-bold ml-2 break-words">
+      <span className="uppercase text-xs text-secondary tracking-widest font-bold ml-2">
         {label}
       </span>
 
-      <InputGroup className="bg-zinc-100 px-2 py-4 mt-2 min-w-0">
+      <InputGroup className="bg-zinc-100 px-2 py-6 mt-2 min-w-0">
         <InputGroupInput
           placeholder={placeholder}
           className="min-w-0"
@@ -146,43 +147,50 @@ export default function ContactPage() {
   return (
     <section
       id="Contact"
-      className="max-w-6xl min-h-[90vh] mx-auto flex justify-center items-center p-4 md:p-5 mt-5 overflow-hidden"
+      className="max-w-6xl min-h-[90vh] mx-auto p-4 md:p-5 mt-5 overflow-hidden"
     >
+      <Title
+        title="Get in Touch"
+        subtitle="Let’s architect the next standard of digital engineering."
+      />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col md:flex-row md:gap-20 items-center w-full min-w-0"
+        className="flex flex-col md:flex-row-reverse md:gap-10 items-stretch w-full min-w-0"
       >
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
           viewport={{ once: false }}
-          className="md:w-[50%] w-full flex flex-col md:gap-10 ml-0 md:ml-4 min-w-0"
+          className="md:w-[50%] w-full flex flex-col justify-between min-w-0"
         >
-          <h1 className="text-4xl md:text-5xl font-semibold mb-3 break-words">
-            Let&apos;s architect the
-            <span className="text-primary"> next standard</span> of digital engineering.
-          </h1>
-
-          <p className="text-zinc-500 break-words">
-            Currently open for senior full-stack engineering roles and strategic consulting.
-          </p>
-
-          <ul className="flex flex-col gap-5 mt-5 min-w-0">
-            {CONTACT_ITEMS.map((item, i) => (
+          <ul className="flex flex-col min-w-0 h-[70%]">
+            
+            <div className="my-auto flex flex-col gap-5 relative left-6">
+              <span className="text-xl font-semibold" >Other ways to connect:</span>
+              <p className="pb-10 text-zinc-500">Working on something that needs to ship or scale? Send a quick overview of what you’re building, what’s blocking you, and what success looks like. I’ll review and follow up with a practical approach.</p>
+              {CONTACT_ITEMS.map((item, i) => (
               <li key={i} className="flex gap-5 items-center z-10 min-w-0">
                 {item.icon}
                 <a
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-2 text-zinc-500 font-bold hover:underline break-words"
+                  className="ml-2 text-zinc-500 font-bold hover:underline"
                 >
                   {item.label}
                 </a>
               </li>
             ))}
+            </div>
           </ul>
+
+          <div className="relative w-full bg-calloutBg/50 rounded-[20px] overflow-hidden">
+            <div className="py-8 pr-32 pl-8 text-primary dark:text-accent">
+              From idea to implementation. Share what you’re building and I’ll help you shape it into something solid.
+            </div>
+            <AtSign size={90} className="text-callout absolute bottom-5 right-2" />
+          </div>
         </motion.div>
 
         <motion.div

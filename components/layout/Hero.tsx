@@ -7,9 +7,9 @@ export default function Hero() {
   return (
     <section
       id="About"
-      className="min-h-[92vh] md:min-h-screen flex flex-col justify-between px-5 md:px-20 overflow-hidden"
+      className="min-h-[88vh] flex flex-col justify-between px-5 md:px-20 overflow-hidden"
     >
-      <div className="flex flex-col gap-3 items-center justify-center flex-1 min-w-0 relative -top-10 lg:top-0">
+      <div className="flex flex-col gap-3 items-center justify-center flex-1 min-w-0">
         <motion.span
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -65,7 +65,7 @@ export default function Hero() {
               })
             }
           >
-            Get in touch
+            Download Resume
           </Button>
 
           <Button

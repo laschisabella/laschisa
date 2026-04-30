@@ -5,19 +5,7 @@ import Image from "next/image";
 import work1 from "@/public/work1.png";
 import { ChevronRightCircle } from "lucide-react";
 import { motion } from "framer-motion";
-
-function SectionHeader() {
-  return (
-    <header className="mt-10 md:mt-20 mb-10 md:mb-16 ml-2">
-      <h1 className="text-3xl font-semibold mb-3">Featured Work</h1>
-      <div className="h-1.5 w-20 bg-primary" />
-      <p className="text-zinc-500 my-3 break-words">
-        A collection of architectural solutions for high-stakes digital
-        environments.
-      </p>
-    </header>
-  );
-}
+import Title from "@/components/Title";
 
 export default function WorkPage() {
   return (
@@ -25,7 +13,7 @@ export default function WorkPage() {
       id="Work"
       className="min-h-screen flex flex-col max-w-6xl mx-auto overflow-hidden px-4"
     >
-      <SectionHeader />
+      <Title title="Featured Work" subtitle="A collection of architectural solutions for high-stakes digital environments." />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}

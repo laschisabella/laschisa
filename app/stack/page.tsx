@@ -10,6 +10,7 @@ import Image from "next/image";
 import me from "@/public/me.png";
 import { motion } from "framer-motion";
 import CountUp from "@/components/CountUp";
+import Title from "@/components/Title";
 
 type StackItem = {
   title: string;
@@ -57,19 +58,6 @@ const STACK: StackItem[] = [
     bg: "bg-card/60",
   },
 ];
-
-function SectionHeader() {
-  return (
-    <header className="mt-10 md:mt-20 mb-10 md:mb-16 ml-2">
-      <h1 className="text-3xl font-semibold mb-3">Tech Stack</h1>
-      <div className="h-1.5 w-20 bg-primary" />
-      <p className="text-zinc-500 my-3 break-words">
-        Engineering scalable systems with intentional architecture and modern
-        primitives.
-      </p>
-    </header>
-  );
-}
 
 function StackCard({
   title,
@@ -180,7 +168,7 @@ export default function StackPage() {
       id="Stack"
       className="min-h-screen max-w-6xl mx-auto flex flex-col mt-20 overflow-hidden px-4 md:px-0"
     >
-      <SectionHeader />
+      <Title title="Tech Stack" subtitle="Engineering scalable systems with intentional architecture and modern primitives." />
 
       <section className="flex flex-col md:flex-row gap-10 min-w-0">
         {STACK.map((stack, i) => (

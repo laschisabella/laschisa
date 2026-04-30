@@ -1,6 +1,5 @@
 "use client";
 
-import { useActiveSection } from "@/hooks/useActiveSection";
 import { Button } from "../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "@/providers/ThemeProvider";
@@ -15,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-const sections = ["About", "Work", "Stack", "Contact"] as const;
+const sections = ["Work", "Stack", "Contact"] as const;
 type Section = (typeof sections)[number];
 type SectionLower = Lowercase<Section>;
 type NavKey = `nav.${SectionLower}`;
@@ -85,114 +84,71 @@ function LanguageToggle() {
 }
 
 export default function Header() {
-  const active = useActiveSection(sections);
   const { t } = useI18n();
 
-  const handleClick = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    requestAnimationFrame(() => {
-      el.scrollIntoView({ behavior: "smooth" });
-    });
-  };
-
   return (
-    <>
-      <motion.header
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        viewport={{ once: false }}
-        className="w-full max-w-7xl relative md:fixed top-2 md:top-0 md:left-1/2 md:-translate-x-1/2 flex justify-between px-4 sm:px-6 md:px-12 lg:px-20 h-[8vh] items-center z-50"
-      >
-        <nav className="flex gap-6 items-center px-4 py-2 rounded-xl backdrop-blur-2xl">
-          <div className="text-primary/70 text-xs sm:text-sm tracking-widest uppercase font-bold flex gap-2 sm:gap-3 items-center relative top-0.5">
-            <CodeXml className="text-accent/70" />
-            <p>laschisa.dev</p>
-          </div>
+    <motion.header
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="w-full mx-auto max-w-6xl relative flex justify-between px-4 h-[8vh] items-center z-50"
+    >
+      <nav className="w-full flex justify-between gap-2 items-center px-4 py-2">
+        <div className="text-secondary text-xs sm:text-sm tracking-widest uppercase font-bold flex gap-2 items-center select-none">
+          <CodeXml className="text-accent/70" />
+          <p>laschisa.dev</p>
+        </div>
 
-          <ul className="hidden lg:flex space-x-3">
+        <ul className="hidden lg:flex space-x-3">
+          {sections.map((id) => {
+            const key = `nav.${id.toLowerCase()}` as NavKey;
+            return (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  className="px-2 py-1 text-secondary hover:text-accent transition"
+                >
+                  {t(key)}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+        <div className="flex gap-2 sm:gap-3 items-center">
+        <LanguageToggle />
+        <ThemeToggle />
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild className="lg:hidden">
+            <Button>
+              <MenuIcon />
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent
+            className="w-46 bg-background/95 relative top-2 right-4"
+            align="start"
+          >
             {sections.map((id) => {
               const key = `nav.${id.toLowerCase()}` as NavKey;
               return (
-                <li key={id} className="relative">
-                  <a
-                    href={`#${id}`}
-                    className={`px-2 py-1 ${
-                      active === id ? "text-accent font-bold" : "text-primary"
-                    }`}
-                    onClick={() => handleClick(id)}
-                  >
-                    {t(key)}
-                  </a>
-                  {active === id && (
-                    <motion.div
-                      layoutId="underline"
-                      className="absolute left-0 right-0 -bottom-1 h-0.5 bg-accent"
-                      transition={{
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 25,
-                      }}
-                    />
-                  )}
-                </li>
+                <DropdownMenuItem key={id} asChild>
+                  <a href={`#${id}`}>{t(key)}</a>
+                </DropdownMenuItem>
               );
             })}
-          </ul>
-        </nav>
-
-        <div className="flex gap-2 sm:gap-3 items-center">
-          <LanguageToggle />
-          <ThemeToggle />
-
-          <Button size="lg" variant="default" className="hidden lg:inline-flex">
-            Download Resume
-          </Button>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild className="lg:hidden">
-              <Button>
-                <MenuIcon />
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="flex justify-center">
+              <Button size="sm" variant="default">
+                Download Resume
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className="w-46 bg-background/95 relative top-2 right-4"
-              align="start"
-            >
-              {sections.map((id) => {
-                const key = `nav.${id.toLowerCase()}` as NavKey;
-                return (
-                  <DropdownMenuItem
-                    key={id}
-                    className="py-2"
-                    onSelect={() => {
-                      const el = document.getElementById(id);
-                      if (!el) return;
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      </nav>
 
-                      setTimeout(() => {
-                        el.scrollIntoView({
-                          behavior: "smooth",
-                          block: "start",
-                        });
-                      }, 0);
-                    }}
-                  >
-                    {t(key)}
-                  </DropdownMenuItem>
-                );
-              })}
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="flex justify-center">
-                <Button size="sm" variant="default">
-                  Download Resume
-                </Button>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </motion.header>
-    </>
+      
+    </motion.header>
   );
 }

@@ -15,6 +15,8 @@
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 
+  --color-header: var(--header);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
 
@@ -31,6 +33,9 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  --color-callout: var(--callout);
+  --color-calloutBg: var(--calloutBg);
+
   --radius-sm: calc(var(--radius) * 0.75);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) * 1.25);
@@ -43,6 +48,11 @@
 
   --card: #C7CBCE;
   --card-foreground: #0f172a;
+
+  --header: #878bab;
+
+  --callout: #a5a8c0;
+  --calloutBg: #b4b7ca;
 
   --primary: #585C7D;
   --primary-foreground: #fff;
@@ -72,6 +82,9 @@
 
   --primary: #6263b7;
   --primary-foreground: #0f172a;
+
+  --callout: #604b68;
+  --calloutBg: #524059;
 
   --secondary: #9697cf;
   --secondary-foreground: #f8fafc;
