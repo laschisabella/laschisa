@@ -73,7 +73,7 @@ function StackCard({
         highlight ? "border-t-8 border-primary" : ""
       } min-w-0 break-words`}
     >
-      <div className="bg-white/40 p-4 self-start rounded-xl">
+      <div className="bg-white/40 dark:bg-primary/10 p-4 self-start rounded-xl">
         <Icon size={40} className="text-accent" />
       </div>
 

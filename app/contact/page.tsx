@@ -166,9 +166,9 @@ export default function ContactPage() {
         >
           <ul className="flex flex-col min-w-0 h-[70%]">
             
-            <div className="my-auto flex flex-col gap-5 relative left-6">
-              <span className="text-xl font-semibold" >Other ways to connect:</span>
+            <div className="my-auto flex flex-col gap-5 relative md:left-6">
               <p className="pb-10 text-zinc-500">Working on something that needs to ship or scale? Send a quick overview of what you’re building, what’s blocking you, and what success looks like. I’ll review and follow up with a practical approach.</p>
+              <span className="text-xl font-semibold" >Other ways to connect:</span>
               {CONTACT_ITEMS.map((item, i) => (
               <li key={i} className="flex gap-5 items-center z-10 min-w-0">
                 {item.icon}

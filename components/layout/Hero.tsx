@@ -9,7 +9,7 @@ export default function Hero() {
       id="About"
       className="min-h-[88vh] flex flex-col justify-between px-5 md:px-20 overflow-hidden"
     >
-      <div className="flex flex-col gap-3 items-center justify-center flex-1 min-w-0">
+      <div className="relative -top-5 md:top-0 flex flex-col gap-3 items-center justify-center flex-1 min-w-0">
         <motion.span
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}

@@ -162,8 +162,7 @@ export default function Header() {
 
                           const y =
                             el.getBoundingClientRect().top +
-                            window.pageYOffset -
-                            80;
+                            window.pageYOffset;
 
                           window.scrollTo({
                             top: y,
