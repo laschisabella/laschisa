@@ -69,9 +69,9 @@ function StackCard({
 }: StackItem) {
   return (
     <div
-      className={`rounded-[20px] p-6 md:p-10 flex flex-col ${bg} ${
+      className={`rounded-[20px] p-6 lg:p-10 flex flex-col ${bg} ${
         highlight ? "border-t-8 border-primary" : ""
-      } min-w-0 break-words`}
+      } min-w-0`}
     >
       <div className="bg-white/40 dark:bg-primary/10 p-4 self-start rounded-xl">
         <Icon size={40} className="text-accent" />
@@ -106,10 +106,10 @@ function Stats() {
   ];
 
   return (
-    <div className="mt-10 flex flex-wrap justify-center gap-5 md:gap-14">
+    <div className="mt-10 flex flex-wrap justify-center gap-5 lg:gap-14">
       {stats.map((stat) => (
         <div key={stat.label} className="flex flex-col items-center min-w-0">
-          <span className={`${stat.color} text-xl md:text-3xl font-semibold`}>
+          <span className={`${stat.color} text-xl lg:text-3xl font-semibold`}>
             <CountUp to={stat.value} />
             {stat.suffix}
           </span>
@@ -124,8 +124,8 @@ function Stats() {
 
 function AboutSection() {
   return (
-    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col md:flex-row gap-10 p-6 md:p-12 items-center overflow-hidden">
-      <div className="bg-accent rounded-[20px] md:w-[50%] w-full overflow-hidden">
+    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col lg:flex-row gap-10 p-6 lg:p-12 items-center overflow-hidden">
+      <div className="bg-accent rounded-[20px] lg:w-[50%] w-full md:max-w-60 lg:max-w-none overflow-hidden">
         <Image
           src={me}
           alt="Work"
@@ -133,7 +133,7 @@ function AboutSection() {
         />
       </div>
 
-      <div className="md:w-[50%] w-full text-zinc-500 break-words min-w-0">
+      <div className="lg:w-[50%] w-full text-zinc-500 break-words min-w-0">
         <span className="uppercase text-xs text-primary tracking-widest font-bold break-words">
           beyond the code
         </span>
@@ -166,11 +166,11 @@ export default function StackPage() {
   return (
     <section
       id="Stack"
-      className="min-h-screen max-w-6xl mx-auto flex flex-col mt-20 overflow-hidden px-4 md:px-0"
+      className="min-h-screen max-w-6xl mx-auto flex flex-col mt-20 overflow-hidden p-4 md:p-20 lg:p-4 lg:px-0"
     >
       <Title title="Tech Stack" subtitle="Engineering scalable systems with intentional architecture and modern primitives." />
 
-      <section className="flex flex-col md:flex-row gap-10 min-w-0">
+      <section className="flex flex-col lg:flex-row gap-10 min-w-0">
         {STACK.map((stack, i) => (
           <motion.div
             key={stack.title}

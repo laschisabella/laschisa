@@ -2,9 +2,9 @@ import { Button } from "../ui/button";
 
 export default function Footer() {
   return (
-    <footer className="flex items-center px-3 md:px-20 h-[8vh] mb-4 md:mb-0">
-      <div className="md:max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between w-full">
-        <div className="text-zinc-400 text-xs font-bold  tracking-wide md:tracking-widest">
+    <footer className="flex items-center px-3 lg:px-20 h-[8vh] mb-4 lg:mb-0">
+      <div className="lg:max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between w-full">
+        <div className="text-zinc-400 text-xs font-bold  tracking-wide lg:tracking-widest">
           © 2026 LASCHISA.DEV • BUILD WITH INTENTIONALITY
         </div>
 

@@ -147,7 +147,7 @@ export default function ContactPage() {
   return (
     <section
       id="Contact"
-      className="max-w-6xl min-h-[90vh] mx-auto p-4 md:p-5 mt-5 overflow-hidden"
+      className="max-w-6xl min-h-[90vh] mx-auto p-4 mt-5 overflow-hidden md:p-20 lg:p-4"
     >
       <Title
         title="Get in Touch"
@@ -155,18 +155,18 @@ export default function ContactPage() {
       />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col md:flex-row-reverse md:gap-10 items-stretch w-full min-w-0"
+        className="flex flex-col lg:flex-row-reverse lg:gap-10 items-stretch w-full min-w-0"
       >
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
           viewport={{ once: false }}
-          className="md:w-[50%] w-full flex flex-col gap-8 md:gap-0 justify-between min-w-0"
+          className="lg:w-[50%] w-full flex flex-col gap-8 lg:gap-0 justify-between min-w-0"
         >
           <ul className="flex flex-col min-w-0 h-[70%]">
             
-            <div className="my-auto flex flex-col gap-5 relative md:left-6">
+            <div className="my-auto flex flex-col gap-5 relative lg:left-6">
               <p className="pb-10 text-zinc-500">Working on something that needs to ship or scale? Send a quick overview of what you’re building, what’s blocking you, and what success looks like. I’ll review and follow up with a practical approach.</p>
               <span className="text-xl font-semibold" >Other ways to connect:</span>
               {CONTACT_ITEMS.map((item, i) => (
@@ -198,7 +198,7 @@ export default function ContactPage() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
           viewport={{ once: false }}
-          className="md:w-[50%] w-full my-10 md:my-0 bg-card/60 rounded-[20px] p-6 md:p-10 flex flex-col gap-5 md:gap-10 z-10 min-w-0"
+          className="lg:w-[50%] w-full my-10 lg:my-0 bg-card/60 rounded-[20px] p-6 lg:p-10 flex flex-col gap-5 lg:gap-10 z-10 min-w-0"
         >
           <InputField
             label="full name"
@@ -229,7 +229,7 @@ export default function ContactPage() {
 
           <Button
             type="submit"
-            className="w-full md:w-fit"
+            className="w-full lg:w-fit"
             size="xl"
             variant="accent"
             disabled={isSubmitting}
