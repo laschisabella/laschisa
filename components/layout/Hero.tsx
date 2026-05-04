@@ -70,7 +70,7 @@ export default function Hero() {
           initial={{ x: 100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-          className="text-4xl md:text-6xl font-semibold leading-tight"
+          className="text-3xl md:text-6xl font-semibold leading-tight"
         >
           <h1>
             Hi, I&apos;m Isabella <span className="text-primary">Laschi</span>.

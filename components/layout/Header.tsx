@@ -1,18 +1,18 @@
 "use client";
 
-import { Button } from "../ui/button";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTheme } from "@/providers/ThemeProvider";
-import { CodeXml, Moon, Sun, MenuIcon } from "lucide-react";
+import { CodeXml, X, Menu, Download, MessageSquareCode } from "lucide-react";
 import { useI18n } from "@/hooks/useI18n";
 import { useState } from "react";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button } from "../ui/button";
 
 const sections = ["Work", "Stack", "Contact"] as const;
 type Section = (typeof sections)[number];
@@ -20,27 +20,35 @@ type SectionLower = Lowercase<Section>;
 type NavKey = `nav.${SectionLower}`;
 
 function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-  const isDark = theme === "dark";
+  const { theme, setTheme } = useTheme();
+
+  const options = [
+    { key: "light", label: "Light" },
+    { key: "dark", label: "Dark" },
+  ];
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="relative p-3 flex items-center justify-center rounded-full bg-neutral-200 dark:bg-primary/20 cursor-pointer"
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={isDark ? "moon" : "sun"}
-          initial={{ rotate: -90, scale: 0 }}
-          animate={{ rotate: 0, scale: 1 }}
-          exit={{ rotate: 90, scale: 0 }}
-          transition={{ duration: 0.3 }}
-          className="text-lg"
-        >
-          {isDark ? <Moon /> : <Sun />}
-        </motion.span>
-      </AnimatePresence>
-    </button>
+    <div className="flex bg-neutral-200 dark:bg-primary/20 rounded-full p-1">
+      {options.map((opt) => {
+        const active = theme === opt.key;
+
+        return (
+          <button
+            key={opt.key}
+            onClick={() => setTheme(opt.key as "light" | "dark")}
+            className={`px-4 py-1.5 rounded-full text-sm transition
+              ${
+                active
+                  ? "bg-white dark:bg-black text-black dark:text-white shadow"
+                  : "text-neutral-600 dark:text-neutral-300"
+              }
+            `}
+          >
+            {opt.label}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
@@ -84,9 +92,12 @@ function LanguageToggle() {
 }
 
 export default function Header() {
-  const { t } = useI18n();
-  const [open, setOpen] = useState(false);
+  const { t, locale } = useI18n();
 
+  const resumeUrl =
+    locale === "pt"
+      ? "https://drive.google.com/SEU_LINK_PT"
+      : "https://drive.google.com/SEU_LINK_EN";
   return (
     <motion.header
       initial={{ opacity: 0, x: -20 }}
@@ -95,89 +106,58 @@ export default function Header() {
       className="w-full mx-auto max-w-6xl relative flex justify-between mt-4 px-4 h-[8vh] items-center z-50"
     >
       <nav className="w-full flex justify-between gap-2 items-center px-4 py-2">
-        <div className="text-secondary text-xs sm:text-sm tracking-widest uppercase font-bold flex gap-2 items-center select-none">
-          <CodeXml className="text-accent/70" />
+        <div className="text-secondary sm:text-lg tracking-widest uppercase font-bold flex gap-4 items-center select-none">
+          <CodeXml size={30} className="text-accent/70" />
           <p>laschisa.dev</p>
         </div>
-
-        <ul className="hidden lg:flex space-x-3">
-          {sections.map((id) => {
-            const key = `nav.${id.toLowerCase()}` as NavKey;
-            return (
-              <li key={id}>
-                <a
-                  href={`#${id}`}
-                  className="px-2 py-1 text-secondary hover:text-accent transition"
-                >
-                  {t(key)}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
         <div className="flex gap-2 sm:gap-3 items-center">
-          <div className="gap-3 hidden md:flex">
-            <LanguageToggle />
-            <ThemeToggle />
-          </div>
-
-          <DropdownMenu open={open} onOpenChange={setOpen}>
-            <DropdownMenuTrigger asChild className="lg:hidden">
-              <Button>
-                <MenuIcon />
-              </Button>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent
-              className="w-full bg-background/95"
-              align="end"
-              sideOffset={10}
-              avoidCollisions={false}
+          <a
+            href={resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden lg:block"
+          >
+            <Button
+              size="lg"
+              variant={"accent"}
+              className="text-[12px] uppercase tracking-widest flex gap-3 opacity-70"
             >
-              <div className="flex justify-between md:hidden p-3 gap-5">
-                <ThemeToggle />
-                <LanguageToggle />
+              Download resume <Download />
+            </Button>
+          </a>
+
+          <Drawer direction="right">
+            <DrawerTrigger className="p-2.5 bg-brand opacity-80 text-white rounded-md transition hover:opacity-60 cursor-pointer">
+              <Menu size={18} />
+            </DrawerTrigger>
+            <DrawerContent className="bg-brand flex flex-col items-end gap-5 p-10">
+              <DrawerClose>
+                <DrawerTitle hidden>Menu</DrawerTitle>
+                <div className="hover:bg-background/20 transition p-2 rounded-md cursor-pointer">
+                  <X size={30} className="text-white" />
+                </div>
+              </DrawerClose>
+              <div className="h-full w-full flex flex-col items-center justify-center">
+                <div className="flex flex-col gap-5 mb-[12vh]">
+                  <ThemeToggle />
+                  <LanguageToggle />
+                </div>
+                <div className="flex flex-col gap-10 items-center uppercase tracking-widest font-bold text-lg text-white">
+                  {sections.map((id) => {
+                    const key = `nav.${id.toLowerCase()}` as NavKey;
+                    return (
+                      <a href={`#${id}`} key={id} className="hover:text-black/50 transition">
+                        {t(key)}
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
-              <DropdownMenuSeparator className="bg-secondary/20 md:hidden" />
-              {sections.map((id) => {
-                const key = `nav.${id.toLowerCase()}` as NavKey;
-                return (
-                  <DropdownMenuItem
-                    key={id}
-                    className="py-2 text-lg text-gray-700 dark:text-gray-100"
-                    asChild
-                  >
-                    <a
-                      href={`#${id}`}
-                      onClick={(e) => {
-                        e.preventDefault();
-
-                        setOpen(false);
-
-                        setTimeout(() => {
-                          document.body.style.overflow = "";
-
-                          const el = document.getElementById(id);
-                          if (!el) return;
-
-                          const y =
-                            el.getBoundingClientRect().top +
-                            window.pageYOffset;
-
-                          window.scrollTo({
-                            top: y,
-                            behavior: "smooth",
-                          });
-                        }, 50);
-                      }}
-                    >
-                      {t(key)}
-                    </a>
-                  </DropdownMenuItem>
-                );
-              })}
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <div className="opacity-30 relative">
+                <MessageSquareCode className="w-48 h-48" />
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
       </nav>
     </motion.header>
