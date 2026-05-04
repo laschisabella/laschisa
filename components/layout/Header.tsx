@@ -104,7 +104,7 @@ export default function Header() {
             >
               <DrawerClose>
                 <DrawerTitle hidden>Menu</DrawerTitle>
-                <div className="hover:bg-background/20 transition p-2 rounded-md cursor-pointer">
+                <div className="hover:bg-background/20 transition p-2 rounded-md cursor-pointer mb-10">
                   <X size={30} className="text-white" />
                 </div>
               </DrawerClose>
