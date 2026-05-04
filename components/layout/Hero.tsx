@@ -61,7 +61,7 @@ export default function Hero() {
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-          className="uppercase text-xs text-primary/80 font-bold tracking-widest"
+          className="hidden lg:block uppercase text-xs text-primary/80 font-bold tracking-widest"
         >
           Full Stack Developer | React, Node.js, System Integration
         </motion.span>
