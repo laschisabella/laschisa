@@ -56,7 +56,7 @@ export default function Hero() {
       id="About"
       className="min-h-[85vh] lg:min-h-[88vh] flex flex-col-reverse lg:flex-row gap-20 justify-center items-center px-5"
     >
-      <div className="flex flex-col gap-5 max-w-2xl">
+      <div className="flex flex-col gap-5 max-w-2xl text-center lg:text-left">
         <motion.span
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -115,7 +115,7 @@ export default function Hero() {
           initial={{ x: 120, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
-          className="flex flex-wrap items-center gap-2 md:gap-3 lg:my-10"
+          className="flex flex-wrap items-center justify-center lg:justify-start gap-2 md:gap-3 lg:my-10"
         >
           <Button
             size="xl"

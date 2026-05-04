@@ -2,9 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useTheme } from "@/providers/ThemeProvider";
-import { CodeXml, X, Menu, Download, MessageSquareCode } from "lucide-react";
+import { CodeXml, X, Menu, Download, Badge } from "lucide-react";
 import { useI18n } from "@/hooks/useI18n";
-import { useState } from "react";
 import {
   Drawer,
   DrawerClose,
@@ -13,6 +12,8 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "../ui/button";
+import AnimatedToggle from "../AnimatedToggle";
+import { useState } from "react";
 
 const sections = ["Work", "Stack", "Contact"] as const;
 type Section = (typeof sections)[number];
@@ -22,82 +23,62 @@ type NavKey = `nav.${SectionLower}`;
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
-  const options = [
-    { key: "light", label: "Light" },
-    { key: "dark", label: "Dark" },
-  ];
-
   return (
-    <div className="flex bg-neutral-200 dark:bg-primary/20 rounded-full p-1">
-      {options.map((opt) => {
-        const active = theme === opt.key;
-
-        return (
-          <button
-            key={opt.key}
-            onClick={() => setTheme(opt.key as "light" | "dark")}
-            className={`px-4 py-1.5 rounded-full text-sm transition
-              ${
-                active
-                  ? "bg-white dark:bg-black text-black dark:text-white shadow"
-                  : "text-neutral-600 dark:text-neutral-300"
-              }
-            `}
-          >
-            {opt.label}
-          </button>
-        );
-      })}
-    </div>
+    <AnimatedToggle
+      value={theme}
+      onChange={(val) => setTheme(val as "light" | "dark")}
+      options={[
+        { key: "light", label: "Light" },
+        { key: "dark", label: "Dark" },
+      ]}
+    />
   );
 }
 
 function LanguageToggle() {
   const { locale, changeLocale } = useI18n();
-  const [active, setActive] = useState<"en" | "pt">(locale);
-
-  const handleChange = (lang: "en" | "pt") => {
-    setActive(lang);
-    changeLocale(lang);
-  };
 
   return (
-    <div className="relative flex w-fit rounded-full bg-muted p-1">
-      <motion.div
-        layout
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        className="absolute top-1 bottom-1 w-1/2 rounded-full bg-secondary/20 shadow"
-        style={{ left: active === "en" ? "4px" : "calc(47%)" }}
-      />
-
-      <button
-        onClick={() => handleChange("en")}
-        className={`relative z-10 px-3 py-1 text-sm cursor-pointer ${
-          active === "en" ? "text-primary font-bold" : "text-muted-foreground"
-        }`}
-      >
-        EN
-      </button>
-
-      <button
-        onClick={() => handleChange("pt")}
-        className={`relative z-10 px-3 py-1 text-sm cursor-pointer ${
-          active === "pt" ? "text-primary font-bold" : "text-muted-foreground"
-        }`}
-      >
-        PT
-      </button>
-    </div>
+    <AnimatedToggle
+      value={locale}
+      onChange={(lang) => changeLocale(lang)}
+      options={[
+        { key: "en", label: "EN" },
+        { key: "pt", label: "PT" },
+      ]}
+    />
   );
 }
 
-export default function Header() {
+function ResumeButton({ className }: { className?: string }) {
   const { t, locale } = useI18n();
-
   const resumeUrl =
     locale === "pt"
       ? "https://drive.google.com/SEU_LINK_PT"
       : "https://drive.google.com/SEU_LINK_EN";
+
+  return (
+    <a
+      href={resumeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={` ` + className}
+    >
+      <Button
+        size="lg"
+        variant={"accent"}
+        className="text-[12px] uppercase tracking-widest flex gap-3 opacity-70"
+      >
+        Download resume <Download />
+      </Button>
+    </a>
+  );
+}
+
+export default function Header() {
+  const { t } = useI18n();
+  const [open, setOpen] = useState(false);
+
   return (
     <motion.header
       initial={{ opacity: 0, x: -20 }}
@@ -111,50 +92,78 @@ export default function Header() {
           <p>laschisa.dev</p>
         </div>
         <div className="flex gap-2 sm:gap-3 items-center">
-          <a
-            href={resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden lg:block"
-          >
-            <Button
-              size="lg"
-              variant={"accent"}
-              className="text-[12px] uppercase tracking-widest flex gap-3 opacity-70"
-            >
-              Download resume <Download />
-            </Button>
-          </a>
+          <ResumeButton className="hidden lg:block" />
 
-          <Drawer direction="right">
+          <Drawer direction="right" open={open} onOpenChange={setOpen}>
             <DrawerTrigger className="p-2.5 bg-brand opacity-80 text-white rounded-md transition hover:opacity-60 cursor-pointer">
               <Menu size={18} />
             </DrawerTrigger>
-            <DrawerContent className="bg-brand flex flex-col items-end gap-5 p-10">
+            <DrawerContent
+              onCloseAutoFocus={(e) => e.preventDefault()}
+              className="bg-brand flex flex-col items-end gap-5 p-10"
+            >
               <DrawerClose>
                 <DrawerTitle hidden>Menu</DrawerTitle>
                 <div className="hover:bg-background/20 transition p-2 rounded-md cursor-pointer">
                   <X size={30} className="text-white" />
                 </div>
               </DrawerClose>
-              <div className="h-full w-full flex flex-col items-center justify-center">
-                <div className="flex flex-col gap-5 mb-[12vh]">
+
+              <div className="h-[60vh] w-full flex flex-col items-center justify-center">
+                <div className="flex flex-col gap-2 lg:gap-5 mb-[12vh]">
                   <ThemeToggle />
                   <LanguageToggle />
                 </div>
-                <div className="flex flex-col gap-10 items-center uppercase tracking-widest font-bold text-lg text-white">
+                <div className="flex flex-col gap-10 mb-8 lg:mb-0 items-center uppercase tracking-widest font-bold text-lg text-white">
                   {sections.map((id) => {
                     const key = `nav.${id.toLowerCase()}` as NavKey;
                     return (
-                      <a href={`#${id}`} key={id} className="hover:text-black/50 transition">
+                      <a
+                        href={`#${id}`}
+                        key={id}
+                        onClick={(e) => {
+                          e.preventDefault();
+
+                          document
+                            .getElementById(id)
+                            ?.scrollIntoView({ behavior: "smooth" });
+
+                          setOpen(false);
+                        }}
+                      >
                         {t(key)}
                       </a>
                     );
                   })}
+                  <a
+                    href={`#`}
+                    className="hover:text-black/50 transition text-center"
+                  >
+                    download resume
+                  </a>
                 </div>
               </div>
-              <div className="opacity-30 relative">
-                <MessageSquareCode className="w-48 h-48" />
+              <div className="relative test scale-150 -bottom-50 -right-50">
+                <Badge
+                  size={350}
+                  className="absolute -right-8 -bottom-50 opacity-10"
+                />
+                <Badge
+                  size={260}
+                  className="absolute right-3 -bottom-40 opacity-10"
+                />
+                <Badge
+                  size={200}
+                  className="absolute right-10 -bottom-36 opacity-10"
+                />
+                <Badge
+                  size={160}
+                  className="absolute right-15 -bottom-36 opacity-10"
+                />
+                <Badge
+                  size={130}
+                  className="absolute right-18 -bottom-36 opacity-10"
+                />
               </div>
             </DrawerContent>
           </Drawer>
