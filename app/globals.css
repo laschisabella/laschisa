@@ -36,6 +36,8 @@
   --color-callout: var(--callout);
   --color-calloutBg: var(--calloutBg);
 
+  --color-brand: #585C7D;
+
   --radius-sm: calc(var(--radius) * 0.75);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) * 1.25);

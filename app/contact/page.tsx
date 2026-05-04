@@ -155,7 +155,7 @@ export default function ContactPage() {
       />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col lg:flex-row-reverse lg:gap-10 items-stretch w-full min-w-0"
+        className="flex flex-col lg:flex-row-reverse lg:gap-20 items-stretch w-full min-w-0"
       >
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -164,33 +164,43 @@ export default function ContactPage() {
           viewport={{ once: false }}
           className="lg:w-[50%] w-full flex flex-col gap-8 lg:gap-0 justify-between min-w-0"
         >
+          <div className="pb-4">
+            <h2 className="text-xl font-semibold">
+              Ship or Scale with Clarity
+            </h2>
+            <p className="mt-1 text-sm">
+              Share context, blockers, and goals to get a focused, practical
+              plan forward.
+            </p>
+
+            <ul className="mt-4 text-zinc-500 list-disc list-inside space-y-2">
+              <li>Working on something that needs to ship or scale</li>
+              <li>Share a quick overview of what you’re building</li>
+              <li>Highlight what’s currently blocking you</li>
+              <li>Define what success looks like for your project</li>
+              <li>Get a practical approach with actionable next steps</li>
+            </ul>
+          </div>
           <ul className="flex flex-col min-w-0 h-[70%]">
-            
-            <div className="my-auto flex flex-col gap-5 relative lg:left-6">
-              <p className="pb-10 text-zinc-500">Working on something that needs to ship or scale? Send a quick overview of what you’re building, what’s blocking you, and what success looks like. I’ll review and follow up with a practical approach.</p>
-              <span className="text-xl font-semibold" >Other ways to connect:</span>
+            <div className="my-auto flex flex-col gap-5">
+              <span className="text-xl font-semibold">
+                Other ways to connect:
+              </span>
               {CONTACT_ITEMS.map((item, i) => (
-              <li key={i} className="flex gap-5 items-center z-10 min-w-0">
-                {item.icon}
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ml-2 text-zinc-500 font-bold hover:underline"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
+                <li key={i} className="flex gap-5 items-center z-10 min-w-0">
+                  {item.icon}
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-2 text-zinc-500 font-bold hover:underline"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
             </div>
           </ul>
-
-          <div className="relative w-full bg-calloutBg/50 rounded-[20px] overflow-hidden">
-            <div className="py-8 pr-32 pl-8 text-primary dark:text-accent">
-              From idea to implementation. Share what you’re building and I’ll help you shape it into something solid.
-            </div>
-            <AtSign size={90} className="text-callout absolute bottom-5 right-2" />
-          </div>
         </motion.div>
 
         <motion.div
