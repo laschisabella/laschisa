@@ -110,7 +110,7 @@ export default function Header() {
               </DrawerClose>
 
               <div className="h-[60vh] w-full flex flex-col items-center justify-center">
-                <div className="flex flex-col gap-2 lg:gap-5 mb-[12vh]">
+                <div className="flex flex-col gap-2 lg:gap-5 mb-[12vh] pt-5">
                   <ThemeToggle />
                   <LanguageToggle />
                 </div>
