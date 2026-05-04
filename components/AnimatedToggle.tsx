@@ -20,7 +20,7 @@ export default function AnimatedToggle<T extends string>({
   const GAP = 4;
 
   return (
-    <div className="relative flex rounded-full bg-black/30 py-1 w-30">
+    <div className="relative flex rounded-full bg-black/30 py-3 w-40">
       <motion.div
         layout
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
