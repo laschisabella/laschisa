@@ -115,7 +115,7 @@ export default function Hero() {
           initial={{ x: 120, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
-          className="flex flex-wrap items-center gap-3 lg:my-10"
+          className="flex flex-wrap items-center gap-2 md:gap-3 lg:my-10"
         >
           <Button
             size="xl"
@@ -128,7 +128,7 @@ export default function Hero() {
             }
           >
             explore work
-            <ArrowRight className="ml-2" />
+            <ArrowRight className="ml-0 md:ml-2" />
           </Button>
 
           <Button
