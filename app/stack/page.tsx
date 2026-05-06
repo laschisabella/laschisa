@@ -10,13 +10,12 @@ import Image from "next/image";
 import me from "@/public/me.png";
 import { motion } from "framer-motion";
 import CountUp from "@/components/CountUp";
-import Title from "@/components/Title";
 
 type StackItem = {
   title: string;
   description: string;
   icon: React.ElementType;
-  highlight?: boolean;
+  highlight?: string;
   items: string[];
   bg: string;
 };
@@ -27,6 +26,7 @@ const STACK: StackItem[] = [
     description:
       "Crafting immersive, type-safe user interfaces with a focus on animation physics and atomic design.",
     icon: PaintBucketIcon,
+    highlight: "border-t-8 border-accent",
     items: [
       "React & Next.js",
       "TypeScript",
@@ -40,7 +40,7 @@ const STACK: StackItem[] = [
     description:
       "Building robust, scalable server-side applications with a focus on performance and maintainability.",
     icon: ServerCogIcon,
-    highlight: true,
+    highlight: "border-t-8 border-primary",
     items: ["Go (Golang)", "Node.js", "PostgreSQL", "gRPC & GraphQL"],
     bg: "bg-card/60",
   },
@@ -49,6 +49,7 @@ const STACK: StackItem[] = [
     description:
       "Architecting immutable infrastructure and automated delivery pipelines for zero-downtime deployments.",
     icon: CloudCogIcon,
+    highlight: "border-t-8 border-accent",
     items: [
       "Kubernetes",
       "Terraform (IaC)",
@@ -68,20 +69,13 @@ function StackCard({
   bg,
 }: StackItem) {
   return (
-    <div
-      className={`rounded-[20px] p-6 lg:p-10 flex flex-col ${bg} ${
-        highlight ? "border-t-8 border-primary" : ""
-      } min-w-0`}
-    >
+    <div className={`rounded-[20px] p-6 lg:p-10 flex flex-col ${bg} ${highlight} min-w-0`}>
       <div className="bg-white/40 dark:bg-primary/10 p-4 self-start rounded-xl">
         <Icon size={40} className="text-accent" />
       </div>
-
       <h2 className="text-3xl font-semibold mt-8 mb-4">{title}</h2>
-
-      <p className="text-zinc-500 mb-10 break-words">{description}</p>
-
-      <ul className="text-zinc-500 break-words">
+      <p className="text-zinc-500 mb-10">{description}</p>
+      <ul className="text-zinc-500">
         {items.map((item, index) => (
           <li
             key={item}
@@ -90,7 +84,7 @@ function StackCard({
             }`}
           >
             <ChevronRightCircle size={14} className="text-primary shrink-0" />
-            <span className="break-words">{item}</span>
+            <span>{item}</span>
           </li>
         ))}
       </ul>
@@ -104,7 +98,6 @@ function Stats() {
     { value: 40, suffix: "+", label: "products", color: "text-secondary/60" },
     { value: 12000, suffix: "+", label: "commits", color: "text-accent/60" },
   ];
-
   return (
     <div className="mt-10 flex flex-wrap justify-center gap-5 lg:gap-14">
       {stats.map((stat) => (
@@ -113,7 +106,7 @@ function Stats() {
             <CountUp to={stat.value} />
             {stat.suffix}
           </span>
-          <span className="text-xs font-bold tracking-widest uppercase text-center break-words">
+          <span className="text-xs font-bold tracking-widest uppercase text-center">
             {stat.label}
           </span>
         </div>
@@ -124,8 +117,8 @@ function Stats() {
 
 function AboutSection() {
   return (
-    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col lg:flex-row gap-10 p-6 lg:p-12 items-center overflow-hidden">
-      <div className="bg-accent rounded-[20px] lg:w-[50%] w-full md:max-w-60 lg:max-w-none overflow-hidden">
+    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col lg:flex-row justify-center gap-10 lg:gap-20 p-6 lg:p-12 items-center overflow-hidden">
+      <div className="bg-accent rounded-[20px] lg:w-[30%] w-[70%] overflow-hidden">
         <Image
           src={me}
           alt="Work"
@@ -133,8 +126,8 @@ function AboutSection() {
         />
       </div>
 
-      <div className="lg:w-[50%] w-full text-zinc-500 break-words min-w-0">
-        <span className="uppercase text-xs text-primary tracking-widest font-bold break-words">
+      <div className="lg:w-[70%] w-full text-zinc-500 min-w-0">
+        <span className="uppercase text-xs text-primary tracking-widest font-bold">
           beyond the code
         </span>
 
@@ -142,18 +135,14 @@ function AboutSection() {
           Building with intentionality.
         </h1>
 
-        <p className="mb-3 break-words">
+        <p className="mb-3">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam
           veritatis consequuntur, doloribus aut ipsum expedita voluptatibus.
         </p>
 
-        <p className="mb-3 break-words">
+        <p className="mb-3">
           Assumenda dolores corrupti ipsum est, eaque dolore earum corporis
           eligendi nisi expedita odit similique.
-        </p>
-
-        <p className="mb-3 break-words">
-          Totam veritatis consequuntur, doloribus aut ipsum expedita.
         </p>
 
         <Stats />
@@ -166,10 +155,8 @@ export default function StackPage() {
   return (
     <section
       id="Stack"
-      className="min-h-screen max-w-6xl mx-auto flex flex-col mt-20 overflow-hidden p-4 md:p-20 lg:p-4 lg:px-0"
+      className="max-w-6xl mx-auto flex flex-col overflow-hidden p-4 md:p-20 lg:p-4"
     >
-      <Title title="Tech Stack" subtitle="Engineering scalable systems with intentional architecture and modern primitives." />
-
       <section className="flex flex-col lg:flex-row gap-10 min-w-0">
         {STACK.map((stack, i) => (
           <motion.div
@@ -178,7 +165,7 @@ export default function StackPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
             viewport={{ once: false }}
-            className="z-10 min-w-0"
+            className="z-10 min-w-0 mx-6 lg:mx-0"
           >
             <StackCard {...stack} />
           </motion.div>

@@ -23,8 +23,8 @@ export default function Home() {
     <>
       <WavesBg />
       <Hero />
-      <WorkPage />
       <StackPage />
+      <WorkPage />
       <ContactPage />
     </>
   );

@@ -8,7 +8,7 @@ import { ArrowRight, Atom, Braces, FileArchive, Webhook } from "lucide-react";
 
 function Photo() {
   return (
-    <div className="relative lg:flex lg:bottom-10 items-center justify-center">
+    <div className="relative lg:flex lg:bottom-10 items-center justify-center lg:mt-10">
       <div className="relative w-40 h-40 lg:w-95 lg:h-120 rounded-2xl">
         <motion.div
           initial={{ x: -80, opacity: 0 }}
@@ -54,14 +54,14 @@ export default function Hero() {
   return (
     <section
       id="About"
-      className="min-h-[85vh] lg:min-h-[88vh] flex flex-col-reverse lg:flex-row gap-20 justify-center items-center px-5"
+      className="flex flex-col-reverse lg:flex-row gap-20 justify-center items-center px-5 my-25 lg:my-36 overflow-hidden"
     >
       <div className="flex flex-col gap-5 max-w-2xl text-center lg:text-left">
         <motion.span
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-          className="hidden lg:block uppercase text-xs text-primary/80 font-bold tracking-widest"
+          className="uppercase text-xs text-primary/80 font-bold tracking-widest mx-5 md:mx-0"
         >
           Full Stack Developer | React, Node.js, System Integration
         </motion.span>
