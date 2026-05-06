@@ -54,7 +54,7 @@ export default function Hero() {
   return (
     <section
       id="About"
-      className="flex flex-col-reverse lg:flex-row gap-20 justify-center items-center px-5 my-25 lg:my-36 overflow-hidden"
+      className="flex flex-col-reverse lg:flex-row gap-20 justify-center items-center px-5 my-16 lg:my-36 overflow-hidden"
     >
       <div className="flex flex-col gap-5 max-w-2xl text-center lg:text-left">
         <motion.span
