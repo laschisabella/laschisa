@@ -69,12 +69,12 @@ function StackCard({
   bg,
 }: StackItem) {
   return (
-    <div className={`rounded-[20px] p-6 lg:p-10 flex flex-col ${bg} ${highlight} min-w-0`}>
+    <div className={`rounded-[20px] p-6 h-full lg:p-10 flex flex-col ${bg} ${highlight} min-w-0`}>
       <div className="bg-white/40 dark:bg-primary/10 p-4 self-start rounded-xl">
         <Icon size={40} className="text-accent" />
       </div>
       <h2 className="text-3xl font-semibold mt-8 mb-4">{title}</h2>
-      <p className="text-zinc-500 mb-10">{description}</p>
+      <p className="text-zinc-500 mb-10 min-h-26">{description}</p>
       <ul className="text-zinc-500">
         {items.map((item, index) => (
           <li
@@ -99,7 +99,7 @@ function Stats() {
     { value: 12000, suffix: "+", label: "commits", color: "text-accent/60" },
   ];
   return (
-    <div className="mt-10 flex flex-wrap justify-center gap-5 lg:gap-14">
+    <div className="mt-10 flex flex-wrap justify-center lg:justify-end lg:mr-10 gap-5 lg:gap-14">
       {stats.map((stat) => (
         <div key={stat.label} className="flex flex-col items-center min-w-0">
           <span className={`${stat.color} text-xl lg:text-3xl font-semibold`}>
@@ -165,7 +165,7 @@ export default function StackPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
             viewport={{ once: false }}
-            className="z-10 min-w-0 mx-6 lg:mx-0"
+            className="z-10 mx-6 lg:mx-0"
           >
             <StackCard {...stack} />
           </motion.div>

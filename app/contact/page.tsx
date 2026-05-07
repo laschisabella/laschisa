@@ -147,15 +147,11 @@ export default function ContactPage() {
   return (
     <section
       id="Contact"
-      className="max-w-6xl min-h-[90vh] mx-auto p-4 mt-5 overflow-hidden md:p-20 lg:p-4"
+      className="max-w-6xl mx-auto p-4 mt-5 overflow-hidden md:p-20 lg:p-4 lg:my-25"
     >
-      <Title
-        title="Get in Touch"
-        subtitle="Let’s architect the next standard of digital engineering."
-      />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col lg:flex-row-reverse lg:gap-20 items-stretch w-full min-w-0"
+        className="flex flex-col lg:flex-row lg:gap-20 items-start w-full min-w-0"
       >
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -165,21 +161,11 @@ export default function ContactPage() {
           className="lg:w-[50%] w-full flex flex-col gap-8 lg:gap-0 justify-between min-w-0"
         >
           <div className="pb-4">
-            <h2 className="text-xl font-semibold">
-              Ship or Scale with Clarity
-            </h2>
-            <p className="mt-1 text-sm">
-              Share context, blockers, and goals to get a focused, practical
-              plan forward.
-            </p>
-
-            <ul className="mt-4 text-zinc-500 list-disc list-inside space-y-2">
-              <li>Working on something that needs to ship or scale</li>
-              <li>Share a quick overview of what you’re building</li>
-              <li>Highlight what’s currently blocking you</li>
-              <li>Define what success looks like for your project</li>
-              <li>Get a practical approach with actionable next steps</li>
-            </ul>
+            <Title
+              title="Get in Touch"
+              subtitle="Let’s architect the next standard of digital engineering."
+            />
+            
           </div>
           <ul className="flex flex-col min-w-0 h-[70%]">
             <div className="my-auto flex flex-col gap-5">
