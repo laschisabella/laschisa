@@ -111,7 +111,7 @@ function FeaturedCard({ item }: { item: WorkItem }) {
       className="flex flex-col md:flex-row bg-card/75 p-5 lg:p-14 gap-7 rounded-[20px] items-center mb-10"
     >
       <div className="w-full md:w-[50%] dark:opacity-80 relative top-5">
-        <div className="relative left-13">
+        <div className="relative text-center lg:text-left lg:left-13">
           <h1 className="text-4xl font-semibold my-1 dark:text-white">
             {item.title}
           </h1>
@@ -133,14 +133,16 @@ function FeaturedCard({ item }: { item: WorkItem }) {
               className="uppercase text-xs tracking-widest font-bold text-primary/70 text-center"
               key={cat}
             >
-              {index > 0 && <span className="mr-2 hidden lg:inline-block">•</span>}
+              {index > 0 && (
+                <span className="mr-2 hidden lg:inline-block">•</span>
+              )}
               {cat}
             </li>
           ))}
         </ul>
         <p className="text-zinc-600 dark:text-zinc-300">{item.description}</p>
         <Tags tags={item.tags} />
-        <div className="flex w-full justify-center lg:justify-end lg:-ml-6 lg:mt-4">
+        <div className="flex w-full justify-center lg:justify-start lg:mt-6">
           <Actions />
         </div>
       </div>
@@ -162,31 +164,34 @@ function DefaultCard({ item, delay }: { item: WorkItem; delay: number }) {
         alt={item.title}
         className="w-[80%] h-auto mx-auto mt-10 dark:opacity-80"
       />
-      <div className="p-6 md:p-10">
+      <div className="p-6 md:p-10 md:mx-10">
         <ul className="flex justify-center gap-5">
           {item.category.map((cat, index) => (
             <li
               className="uppercase text-xs tracking-widest font-bold text-primary/70 text-center"
               key={cat}
             >
-              {index > 0 && <span className="mr-2 hidden lg:inline-block">•</span>}
+              {index > 0 && (
+                <span className="mr-2 hidden lg:inline-block">•</span>
+              )}
               {cat}
             </li>
           ))}
         </ul>
 
-        <h1 className="text-3xl font-semibold mt-10 dark:text-white">
-          {item.title}
-        </h1>
-        <h2 className="text-xl font-semibold my-1 text-zinc-500 dark:text-zinc-200 mb-4">
-          {item.subtitle}
-        </h2>
+        <div className="text-center lg:text-left">
+          <h1 className="text-3xl font-semibold mt-10 dark:text-white">
+            {item.title}
+          </h1>
+          <h2 className="text-xl font-semibold my-1 text-zinc-500 dark:text-zinc-200 mb-4">
+            {item.subtitle}
+          </h2>
+        </div>
 
-        <p className="text-zinc-400">{item.description}</p>
+        <p className="text-zinc-600 dark:text-zinc-400">{item.description}</p>
         <Tags tags={item.tags} />
-        <div className="flex justify-center lg:justify-end">
-        <Actions />
-
+        <div className="flex justify-center">
+          <Actions />
         </div>
       </div>
     </MotionCard>
