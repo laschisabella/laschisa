@@ -2,57 +2,82 @@
 
 import Image, { StaticImageData } from "next/image";
 import { motion } from "framer-motion";
-import { ChevronRightCircle } from "lucide-react";
+import { ArrowRight, ChevronRightCircle } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import Title from "@/components/Title";
 
-import work1 from "@/public/work1.png";
+import contrastly from "@/public/contrastly.png";
+import hooksee from "@/public/hooksee.png";
+import flowmap from "@/public/flowmap.png";
+import { HoverSwapButton } from "@/components/HoverSwapButton";
 
 const MotionCard = motion.div;
 
 interface WorkItem {
   title: string;
+  subtitle: string;
   description: string;
-  category: string;
+  category: string[];
   image: StaticImageData;
   tags: string[];
 }
 
 const workItems: WorkItem[] = [
   {
-    title: "Global Checkout Infrastructure",
+    title: "FlowMap",
+    subtitle: "Visual workflows for API integrations",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis fugit quisquam dolorum esse libero praesentium ipsum nam ea sapiente labore.",
-    category: "fintech infrastructure",
-    image: work1,
-    tags: ["React", "Node.js", "Stripe API", "Redis"],
+      "Inspired by years working with complex system integrations, FlowMap explores how visual tooling can simplify payload mapping and data transformation workflows.",
+    category: ["DevTool", "Visual Builder", "Data Transformation"],
+    image: flowmap,
+    tags: [
+      "Next.js",
+      "TailwindCSS",
+      "Recursive JSON Parsing",
+      "Tree-Based Payload Rendering",
+    ],
   },
   {
-    title: "Lorem Ipsum title 2",
+    title: "Contrastly",
+    subtitle: "Accessibility-first palette generation",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis fugit quisquam dolorum esse libero praesentium ipsum nam ea sapiente labore.",
-    category: "fintech infrastructure",
-    image: work1,
-    tags: ["React", "Node.js", "Stripe API", "Redis"],
+      "Created from the intersection of frontend engineering and UI design experience, Contrastly focuses on making accessibility validation feel like a natural part of the design process.",
+    category: ["Frontend Tooling", "UI Engineering", "Design Systems"],
+    image: contrastly,
+    tags: [
+      "Next.js",
+      "TailwindCSS",
+      "WCAG Contrast Calculations",
+      "Color Interpolation Algorithms",
+    ],
   },
   {
-    title: "Lorem Ipsum title 3",
+    title: "Hooksee",
+    subtitle: "Realtime API event observability",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis fugit quisquam dolorum esse libero praesentium ipsum nam ea sapiente labore.",
-    category: "fintech infrastructure",
-    image: work1,
-    tags: ["React", "Node.js", "Stripe API", "Redis"],
+      "Built from real integration debugging workflows involving Shopify, NetSuite and custom APIs, Hooksee focuses on making webhook inspection faster, clearer and more developer-friendly.",
+    category: ["DevTool", "SaaS Platform", "Integrations"],
+    image: hooksee,
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Node.js API Routes",
+      "WebSocket Realtime Updates",
+    ],
   },
 ];
 
 function Tags({ tags }: { tags: string[] }) {
   return (
-    <ul className="flex flex-wrap gap-3 my-5 pb-2">
+    <ul className="flex flex-col gap-1 my-5 pb-2 relative left-5">
       {tags.map((tag) => (
-        <li key={tag} className="px-3 py-1 bg-white dark:bg-background rounded-lg text-zinc-600 dark:text-zinc-400">
+        <span
+          key={tag}
+          className="text-zinc-600 dark:dark:text-zinc-300 flex items-center gap-2"
+        >
+          <ChevronRightCircle size={14} className="text-accent" />
           {tag}
-        </li>
+        </span>
       ))}
     </ul>
   );
@@ -60,15 +85,18 @@ function Tags({ tags }: { tags: string[] }) {
 
 function Actions() {
   return (
-    <div className="flex flex-wrap gap-2">
-      <Button variant="ghost" className="text-secondary">
-        <ChevronRightCircle />
-        Source code
-      </Button>
-      <Button variant="ghost" className="text-accent">
-        <ChevronRightCircle />
-        Live demo
-      </Button>
+    <div className="flex flex-wrap gap-5">
+      <HoverSwapButton
+        variant="outline"
+        defaultText="source code"
+        hoverText="Coming soon"
+      />
+
+      <HoverSwapButton
+        defaultText="live demo"
+        hoverText="Coming soon"
+        icon={<ArrowRight />}
+      />
     </div>
   );
 }
@@ -80,21 +108,41 @@ function FeaturedCard({ item }: { item: WorkItem }) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
       viewport={{ once: false }}
-      className="flex flex-col md:flex-row bg-card/60 p-5 lg:p-16 gap-10 rounded-[20px] items-center mb-10"
+      className="flex flex-col md:flex-row bg-card/75 p-5 lg:p-14 gap-7 rounded-[20px] items-center mb-10"
     >
-      <Image src={item.image} alt={item.title} className="w-full md:w-[35%] dark:opacity-80" />
+      <div className="w-full md:w-[50%] dark:opacity-80 relative top-5">
+        <div className="relative left-13">
+          <h1 className="text-4xl font-semibold my-1 dark:text-white">
+            {item.title}
+          </h1>
+          <h2 className="text-xl font-semibold my-1 text-zinc-500 dark:text-zinc-200">
+            {item.subtitle}
+          </h2>
+        </div>
+        <Image
+          src={item.image}
+          alt={item.title}
+          className="w-full dark:opacity-80 mt-8 mb-5"
+        />
+      </div>
 
-      <div className="md:w-[65%] p-5">
-        <span className="uppercase text-xs tracking-widest font-bold text-primary/70">
-          {item.category}
-        </span>
-
-        <h2 className="text-3xl font-semibold my-3">{item.title}</h2>
-
-        <p className="text-zinc-500">{item.description}</p>
-
+      <div className="md:w-[50%] p-5">
+        <ul className="flex gap-5 mb-5">
+          {item.category.map((cat, index) => (
+            <li
+              className="uppercase text-xs tracking-widest font-bold text-primary/70 text-center"
+              key={cat}
+            >
+              {index > 0 && <span className="mr-2 hidden lg:inline-block">•</span>}
+              {cat}
+            </li>
+          ))}
+        </ul>
+        <p className="text-zinc-600 dark:text-zinc-300">{item.description}</p>
         <Tags tags={item.tags} />
-        <Actions />
+        <div className="flex w-full justify-center lg:justify-end lg:-ml-6 lg:mt-4">
+          <Actions />
+        </div>
       </div>
     </MotionCard>
   );
@@ -107,22 +155,39 @@ function DefaultCard({ item, delay }: { item: WorkItem; delay: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
       viewport={{ once: false }}
-      className="bg-card/60 flex flex-col rounded-3xl p-10"
+      className="bg-card/75 flex flex-col rounded-3xl"
     >
       <Image
         src={item.image}
         alt={item.title}
-        className="w-[60%] h-auto mx-auto mt-10 dark:opacity-80"
+        className="w-[80%] h-auto mx-auto mt-10 dark:opacity-80"
       />
-
       <div className="p-6 md:p-10">
-        <span className="uppercase text-xs tracking-widest font-bold text-primary/70">
-          {item.category}
-        </span>
-        <h2 className="text-2xl font-semibold my-3">{item.title}</h2>
-        <p className="text-zinc-500">{item.description}</p>
+        <ul className="flex justify-center gap-5">
+          {item.category.map((cat, index) => (
+            <li
+              className="uppercase text-xs tracking-widest font-bold text-primary/70 text-center"
+              key={cat}
+            >
+              {index > 0 && <span className="mr-2 hidden lg:inline-block">•</span>}
+              {cat}
+            </li>
+          ))}
+        </ul>
+
+        <h1 className="text-3xl font-semibold mt-10 dark:text-white">
+          {item.title}
+        </h1>
+        <h2 className="text-xl font-semibold my-1 text-zinc-500 dark:text-zinc-200 mb-4">
+          {item.subtitle}
+        </h2>
+
+        <p className="text-zinc-400">{item.description}</p>
         <Tags tags={item.tags} />
+        <div className="flex justify-center lg:justify-end">
         <Actions />
+
+        </div>
       </div>
     </MotionCard>
   );
@@ -132,10 +197,13 @@ export default function WorkPage() {
   const [featured, ...rest] = workItems;
 
   return (
-    <section className="min-h-screen flex flex-col max-w-6xl mx-auto overflow-hidden px-4" id="Work">
+    <section
+      className="min-h-screen flex flex-col max-w-6xl mx-auto overflow-hidden px-4"
+      id="Work"
+    >
       <Title
         title="Featured Work"
-        subtitle="A collection of architectural solutions for high-stakes digital environments."
+        subtitle="Projects shaped by real experience with integrations, frontend architecture and developer workflows."
       />
 
       <FeaturedCard item={featured} />
