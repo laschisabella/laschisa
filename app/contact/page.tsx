@@ -158,14 +158,13 @@ export default function ContactPage() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
           viewport={{ once: false }}
-          className="lg:w-[50%] w-full flex flex-col gap-8 lg:gap-0 justify-between min-w-0"
+          className="lg:w-[50%] w-full flex flex-col gap-8 lg:gap-0 justify-between min-w-0 relative left-5"
         >
           <div className="pb-4">
             <Title
-              title="Get in Touch"
-              subtitle="Let’s architect the next standard of digital engineering."
+              title="Let’s work together"
+              subtitle="Available for freelance and full-time opportunities."
             />
-            
           </div>
           <ul className="flex flex-col min-w-0 h-[70%]">
             <div className="my-auto flex flex-col gap-5">
@@ -194,7 +193,7 @@ export default function ContactPage() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
           viewport={{ once: false }}
-          className="lg:w-[50%] w-full my-10 lg:my-0 bg-card/60 rounded-[20px] p-6 lg:p-10 flex flex-col gap-5 lg:gap-10 z-10 min-w-0"
+          className="lg:w-[50%] w-full my-10 lg:my-0 bg-card/75 rounded-[20px] p-6 lg:p-10 flex flex-col gap-5 lg:gap-10 z-10 min-w-0"
         >
           <InputField
             label="full name"

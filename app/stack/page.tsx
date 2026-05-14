@@ -22,41 +22,46 @@ type StackItem = {
 
 const STACK: StackItem[] = [
   {
-    title: "Frontend",
+    title: "Frontend Engineering",
     description:
-      "Crafting immersive, type-safe user interfaces with a focus on animation physics and atomic design.",
+      "Building scalable frontend applications and developer-focused interfaces with an emphasis on usability, maintainability and design systems.",
     icon: PaintBucketIcon,
     highlight: "border-t-8 border-accent",
     items: [
       "React & Next.js",
       "TypeScript",
       "Tailwind CSS",
-      "Three.js (WebGL)",
+      "React Native & Flutter",
     ],
-    bg: "bg-card/60",
+    bg: "bg-card/75",
   },
   {
-    title: "Backend",
+    title: "Backend & Integrations",
     description:
-      "Building robust, scalable server-side applications with a focus on performance and maintainability.",
+      "Designing backend workflows, API integrations and data transformation systems across platforms like Shopify, NetSuite and QuickBooks.",
     icon: ServerCogIcon,
     highlight: "border-t-8 border-primary",
-    items: ["Go (Golang)", "Node.js", "PostgreSQL", "gRPC & GraphQL"],
-    bg: "bg-card/60",
+    items: [
+      "Node.js & Nest.js",
+      "REST APIs & Webhooks",
+      "System Integrations",
+      "MongoDB & MySQL",
+    ],
+    bg: "bg-card/75",
   },
   {
-    title: "Cloud & DevOps",
+    title: "Architecture & Product Thinking",
     description:
-      "Architecting immutable infrastructure and automated delivery pipelines for zero-downtime deployments.",
+      "Focused on simplifying complex workflows through technical architecture, developer experience and interface-driven problem solving.",
     icon: CloudCogIcon,
     highlight: "border-t-8 border-accent",
     items: [
-      "Kubernetes",
-      "Terraform (IaC)",
-      "Github Actions / CI",
-      "Prometheus & Grafana",
+      "Developer Tooling",
+      "Accessibility",
+      "UX/UI Systems",
+      "Technical Refactoring",
     ],
-    bg: "bg-card/60",
+    bg: "bg-card/75",
   },
 ];
 
@@ -69,7 +74,9 @@ function StackCard({
   bg,
 }: StackItem) {
   return (
-    <div className={`rounded-[20px] p-6 h-full lg:p-10 flex flex-col ${bg} ${highlight} min-w-0`}>
+    <div
+      className={`rounded-[20px] p-6 h-full lg:p-10 flex flex-col ${bg} ${highlight} min-w-0`}
+    >
       <div className="bg-white/40 dark:bg-primary/10 p-4 self-start rounded-xl">
         <Icon size={40} className="text-accent" />
       </div>
@@ -117,7 +124,7 @@ function Stats() {
 
 function AboutSection() {
   return (
-    <section className="bg-card/60 z-10 w-full mt-8 rounded-[20px] flex flex-col lg:flex-row justify-center gap-10 lg:gap-20 p-6 lg:p-12 items-center overflow-hidden">
+    <section className="bg-card/75 z-10 w-full mt-8 rounded-[20px] flex flex-col lg:flex-row justify-center gap-10 lg:gap-20 p-6 lg:p-12 items-center overflow-hidden">
       <div className="bg-accent rounded-[20px] lg:w-[30%] w-[70%] overflow-hidden">
         <Image
           src={me}
@@ -132,17 +139,19 @@ function AboutSection() {
         </span>
 
         <h1 className="font-semibold text-secondary text-3xl my-3">
-          Building with intentionality.
+          Designing clarity for complex workflows.
         </h1>
 
         <p className="mb-3">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam
-          veritatis consequuntur, doloribus aut ipsum expedita voluptatibus.
+          My background in frontend engineering and system integrations shaped
+          the way I approach software: not just as interfaces, but as tools that
+          help people navigate complexity with more clarity and efficiency.
         </p>
 
         <p className="mb-3">
-          Assumenda dolores corrupti ipsum est, eaque dolore earum corporis
-          eligendi nisi expedita odit similique.
+          I’m especially interested in developer experience, accessibility and
+          integration workflows — areas where technical architecture and
+          usability need to work together seamlessly.
         </p>
 
         <Stats />
