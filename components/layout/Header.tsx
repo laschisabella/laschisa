@@ -18,7 +18,7 @@ import { useState } from "react";
 const sections = ["Work", "Stack", "Contact"] as const;
 type Section = (typeof sections)[number];
 type SectionLower = Lowercase<Section>;
-type NavKey = `nav.${SectionLower}`;
+type NavKey = `header.nav.${SectionLower}`;
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -69,7 +69,7 @@ function ResumeButton({ className }: { className?: string }) {
         variant={"accent"}
         className="text-[12px] uppercase tracking-widest flex gap-3 opacity-70"
       >
-        Download resume <Download />
+        {t("header.downloadResume")} <Download />
       </Button>
     </a>
   );
@@ -116,7 +116,7 @@ export default function Header() {
                 </div>
                 <div className="flex flex-col gap-10 mb-8 lg:mb-0 items-center uppercase tracking-widest font-bold text-lg text-white">
                   {sections.map((id) => {
-                    const key = `nav.${id.toLowerCase()}` as NavKey;
+                    const key = `header.nav.${id.toLowerCase()}` as NavKey;
                     return (
                       <a
                         href={`#${id}`}
@@ -139,7 +139,7 @@ export default function Header() {
                     href={`#`}
                     className="hover:text-black/50 transition text-center"
                   >
-                    download resume
+                    {t("header.downloadResume")}
                   </a>
                 </div>
               </div>

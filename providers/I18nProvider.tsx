@@ -15,7 +15,7 @@ type NestedKey<T> = {
 
 type TranslationKey = NestedKey<Messages>;
 
-type I18nContextType = {
+export type I18nContextType = {
   locale: Locale;
   changeLocale: (l: Locale) => void;
   t: (key: TranslationKey) => string;

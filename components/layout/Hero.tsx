@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import me from "@/public/11bc6.png";
 import Image from "next/image";
 import { ArrowRight, Atom, Braces, FileArchive, Webhook } from "lucide-react";
+import { useI18n } from "@/hooks/useI18n";
 
 function Photo() {
   return (
@@ -51,10 +52,12 @@ function Photo() {
 }
 
 export default function Hero() {
+  const { t } = useI18n();
+
   return (
     <section
       id="About"
-      className="flex flex-col-reverse lg:flex-row gap-20 justify-center items-center px-5 my-16 lg:my-36 overflow-hidden"
+      className="flex flex-col-reverse lg:flex-row gap-20 lg:gap-30 justify-center items-center px-5 my-16 lg:my-36 overflow-hidden"
     >
       <div className="flex flex-col gap-5 max-w-2xl text-center lg:text-left">
         <motion.span
@@ -63,7 +66,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           className="uppercase text-xs text-primary/80 font-bold tracking-widest mx-5 md:mx-0"
         >
-          Full Stack Developer | React, Node.js, System Integration
+          {t("hero.subtitle")}
         </motion.span>
 
         <motion.div
@@ -73,7 +76,8 @@ export default function Hero() {
           className="text-3xl md:text-6xl font-semibold leading-tight"
         >
           <h1>
-            Hi, I&apos;m Isabella <span className="text-primary">Laschi</span>.
+            {t("hero.title")}
+            <span className="text-primary">{t("hero.titleSpan")}</span>.
           </h1>
         </motion.div>
 
@@ -83,10 +87,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           className="text-foreground/80 max-w-lg text-base md:text-lg"
         >
-          <p>
-            I build and improve production systems, focusing on integrations,
-            maintainability and long-term reliability.
-          </p>
+          <p>{t("hero.description")}</p>
         </motion.div>
 
         <motion.div
@@ -97,16 +98,16 @@ export default function Hero() {
         >
           <ul className="flex flex-col gap-2 text-sm md:text-base relative left-8">
             <li className="flex gap-5 items-center">
-              <Webhook size={18} className="text-accent" /> API integrations
+              <Webhook size={18} className="text-accent" /> {t("hero.bullet1")}
             </li>
             <li className="flex gap-5 items-center">
-              <Braces size={18} className="text-secondary" /> Legacy systems
+              <Braces size={18} className="text-secondary" /> {t("hero.bullet2")}
             </li>
             <li className="flex gap-5 items-center">
-              <Atom size={18} className="text-primary" /> Performance optimization
+              <Atom size={18} className="text-primary" /> {t("hero.bullet3")}
             </li>
             <li className="flex gap-5 items-center">
-              <FileArchive size={18} className="text-accent" /> System reliability
+              <FileArchive size={18} className="text-accent" /> {t("hero.bullet4")}
             </li>
           </ul>
         </motion.div>
@@ -127,7 +128,7 @@ export default function Hero() {
               })
             }
           >
-            explore work
+            {t("hero.button1")}
             <ArrowRight className="ml-0 md:ml-2" />
           </Button>
 
@@ -141,7 +142,7 @@ export default function Hero() {
               })
             }
           >
-            get in touch
+            {t("hero.button2")}
           </Button>
         </motion.div>
       </div>

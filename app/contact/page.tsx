@@ -7,7 +7,7 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import { FieldDescription } from "@/components/ui/field";
-import { AtSign, Code, Link, Mail, Text, User } from "lucide-react";
+import { Code, Link, Mail, Text, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useForm, FieldError, UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { EmailJSResponseStatus } from "emailjs-com";
 import { motion } from "framer-motion";
 import Title from "@/components/Title";
+import { useI18n } from "@/hooks/useI18n";
 
 type BaseFieldProps = {
   label: string;
@@ -53,7 +54,7 @@ function InputField({
       </InputGroup>
 
       {error && (
-        <FieldDescription className="pt-1 ml-2 text-red-800 dark:text-red-500 break-words">
+        <FieldDescription className="pt-1 ml-2 text-red-800 dark:text-red-500">
           {error.message}
         </FieldDescription>
       )}
@@ -71,7 +72,7 @@ function TextareaField({
 }: BaseFieldProps) {
   return (
     <div className="min-w-0">
-      <span className="uppercase text-xs text-secondary tracking-widest font-bold ml-2 break-words">
+      <span className="uppercase text-xs text-secondary tracking-widest font-bold ml-2">
         {label}
       </span>
 
@@ -87,7 +88,7 @@ function TextareaField({
       </InputGroup>
 
       {error && (
-        <FieldDescription className="pt-1 ml-2 text-red-800 dark:text-red-500 break-words">
+        <FieldDescription className="pt-1 ml-2 text-red-800 dark:text-red-500">
           {error.message}
         </FieldDescription>
       )}
@@ -115,6 +116,8 @@ const CONTACT_ITEMS = [
 ];
 
 export default function ContactPage() {
+  const { t } = useI18n();
+
   const {
     register,
     handleSubmit,
@@ -128,7 +131,7 @@ export default function ContactPage() {
     try {
       await sendContactEmail(data);
       reset();
-      toast.success("Message sent successfully.", {
+      toast.success(t("contact.formSuccess"), {
         unstyled: true,
         className:
           "flex gap-5 items-center bg-background text-green-700 border border-green-700 px-4 py-3 rounded-lg font-bold",
@@ -136,7 +139,7 @@ export default function ContactPage() {
     } catch (e: unknown) {
       const err = e as EmailJSResponseStatus;
 
-      toast.error("Failed to send message: " + err.text, {
+      toast.error(t("contact.formError") + err.text, {
         unstyled: true,
         className:
           "flex gap-5 items-center bg-background text-red-700 border border-red-700 px-4 py-3 rounded-lg font-bold",
@@ -162,14 +165,14 @@ export default function ContactPage() {
         >
           <div className="pb-4">
             <Title
-              title="Let’s work together"
-              subtitle="Available for freelance and full-time opportunities."
+              title={t("contact.title")}
+              subtitle={t("contact.subtitle")}
             />
           </div>
           <ul className="flex flex-col min-w-0 h-[70%]">
             <div className="my-auto flex flex-col gap-5">
               <span className="text-xl font-semibold">
-                Other ways to connect:
+                {t("contact.contactMethods")}
               </span>
               {CONTACT_ITEMS.map((item, i) => (
                 <li key={i} className="flex gap-5 items-center z-10 min-w-0">
@@ -196,7 +199,7 @@ export default function ContactPage() {
           className="lg:w-[50%] w-full my-10 lg:my-0 bg-card/75 rounded-[20px] p-6 lg:p-10 flex flex-col gap-5 lg:gap-10 z-10 min-w-0"
         >
           <InputField
-            label="full name"
+            label={t("contact.fields.name")}
             name="name"
             placeholder="John Doe"
             icon={<User />}
@@ -205,7 +208,7 @@ export default function ContactPage() {
           />
 
           <InputField
-            label="email address"
+            label={t("contact.fields.email")}
             name="email"
             placeholder="john@example.com"
             icon={<Mail />}
@@ -214,9 +217,9 @@ export default function ContactPage() {
           />
 
           <TextareaField
-            label="message"
+            label={t("contact.fields.message")}
             name="message"
-            placeholder="Your message here..."
+            placeholder={t("contact.fields.messagePlaceholder")}
             icon={<Text />}
             register={register}
             error={errors.message}
@@ -224,12 +227,12 @@ export default function ContactPage() {
 
           <Button
             type="submit"
-            className="w-full lg:w-fit"
+            className="w-full lg:w-fit uppercase self-end text-xs tracking-widest font-bold"
             size="xl"
             variant="accent"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Sending..." : "Send Message"}
+            {isSubmitting ? t("contact.actions.sending") : t("contact.actions.submit")}
           </Button>
         </motion.div>
       </form>

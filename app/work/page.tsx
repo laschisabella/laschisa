@@ -10,6 +10,7 @@ import contrastly from "@/public/contrastly.png";
 import hooksee from "@/public/hooksee.png";
 import flowmap from "@/public/flowmap.png";
 import { HoverSwapButton } from "@/components/HoverSwapButton";
+import { useI18n } from "@/hooks/useI18n";
 
 const MotionCard = motion.div;
 
@@ -22,47 +23,58 @@ interface WorkItem {
   tags: string[];
 }
 
-const workItems: WorkItem[] = [
+type Translate = ReturnType<typeof useI18n>["t"];
+
+const WORK_ITEMS = (t: Translate): WorkItem[] => [
   {
-    title: "FlowMap",
-    subtitle: "Visual workflows for API integrations",
-    description:
-      "Inspired by years working with complex system integrations, FlowMap explores how visual tooling can simplify payload mapping and data transformation workflows.",
-    category: ["DevTool", "Visual Builder", "Data Transformation"],
+    title: t("work.flowmap.title"),
+    subtitle: t("work.flowmap.subtitle"),
+    description: t("work.flowmap.description"),
+    category: [
+      t("work.flowmap.category.0"),
+      t("work.flowmap.category.1"),
+      t("work.flowmap.category.2"),
+    ],
     image: flowmap,
     tags: [
-      "Next.js",
-      "TailwindCSS",
-      "Recursive JSON Parsing",
-      "Tree-Based Payload Rendering",
+      t("work.flowmap.tags.0"),
+      t("work.flowmap.tags.1"),
+      t("work.flowmap.tags.2"),
+      t("work.flowmap.tags.3"),
     ],
   },
   {
-    title: "Contrastly",
-    subtitle: "Accessibility-first palette generation",
-    description:
-      "Created from the intersection of frontend engineering and UI design experience, Contrastly focuses on making accessibility validation feel like a natural part of the design process.",
-    category: ["Frontend Tooling", "UI Engineering", "Design Systems"],
+    title: t("work.contrastly.title"),
+    subtitle: t("work.contrastly.subtitle"),
+    description: t("work.contrastly.description"),
+    category: [
+      t("work.contrastly.category.0"),
+      t("work.contrastly.category.1"),
+      t("work.contrastly.category.2"),
+    ],
     image: contrastly,
     tags: [
-      "Next.js",
-      "TailwindCSS",
-      "WCAG Contrast Calculations",
-      "Color Interpolation Algorithms",
+      t("work.contrastly.tags.0"),
+      t("work.contrastly.tags.1"),
+      t("work.contrastly.tags.2"),
+      t("work.contrastly.tags.3"),
     ],
   },
   {
-    title: "Hooksee",
-    subtitle: "Realtime API event observability",
-    description:
-      "Built from real integration debugging workflows involving Shopify, NetSuite and custom APIs, Hooksee focuses on making webhook inspection faster, clearer and more developer-friendly.",
-    category: ["DevTool", "SaaS Platform", "Integrations"],
+    title: t("work.hooksee.title"),
+    subtitle: t("work.hooksee.subtitle"),
+    description: t("work.hooksee.description"),
+    category: [
+      t("work.hooksee.category.0"),
+      t("work.hooksee.category.1"),
+      t("work.hooksee.category.2"),
+    ],
     image: hooksee,
     tags: [
-      "Next.js",
-      "TypeScript",
-      "Node.js API Routes",
-      "WebSocket Realtime Updates",
+      t("work.hooksee.tags.0"),
+      t("work.hooksee.tags.1"),
+      t("work.hooksee.tags.2"),
+      t("work.hooksee.tags.3"),
     ],
   },
 ];
@@ -84,17 +96,19 @@ function Tags({ tags }: { tags: string[] }) {
 }
 
 function Actions() {
+  const { t } = useI18n();
+
   return (
     <div className="flex flex-wrap gap-5">
       <HoverSwapButton
         variant="outline"
-        defaultText="source code"
-        hoverText="Coming soon"
+        defaultText={t("work.actions.sourceCode")}
+        hoverText={t("work.actions.comingSoon")}
       />
 
       <HoverSwapButton
-        defaultText="live demo"
-        hoverText="Coming soon"
+        defaultText={t("work.actions.liveDemo")}
+        hoverText={t("work.actions.comingSoon")}
         icon={<ArrowRight />}
       />
     </div>
@@ -128,14 +142,11 @@ function FeaturedCard({ item }: { item: WorkItem }) {
 
       <div className="md:w-[50%] p-5">
         <ul className="flex gap-5 mb-5">
-          {item.category.map((cat, index) => (
+          {item.category.map((cat) => (
             <li
-              className="uppercase text-xs tracking-widest font-bold text-primary/70 text-center"
+              className="uppercase bg-accent/10 py-2 px-4 rounded-lg flex items-center text-xs tracking-widest font-bold text-primary/70 text-center"
               key={cat}
             >
-              {index > 0 && (
-                <span className="mr-2 hidden lg:inline-block">•</span>
-              )}
               {cat}
             </li>
           ))}
@@ -166,14 +177,11 @@ function DefaultCard({ item, delay }: { item: WorkItem; delay: number }) {
       />
       <div className="p-6 md:p-10 md:mx-10">
         <ul className="flex justify-center gap-5">
-          {item.category.map((cat, index) => (
+          {item.category.map((cat) => (
             <li
-              className="uppercase text-xs tracking-widest font-bold text-primary/70 text-center"
+              className="uppercase bg-accent/10 py-2 px-4 rounded-lg flex items-center text-xs tracking-widest font-bold text-primary/70 text-center"
               key={cat}
             >
-              {index > 0 && (
-                <span className="mr-2 hidden lg:inline-block">•</span>
-              )}
               {cat}
             </li>
           ))}
@@ -199,7 +207,8 @@ function DefaultCard({ item, delay }: { item: WorkItem; delay: number }) {
 }
 
 export default function WorkPage() {
-  const [featured, ...rest] = workItems;
+  const { t } = useI18n();
+  const [featured, ...rest] = WORK_ITEMS(t);
 
   return (
     <section
@@ -207,8 +216,8 @@ export default function WorkPage() {
       id="Work"
     >
       <Title
-        title="Featured Work"
-        subtitle="Projects shaped by real experience with integrations, frontend architecture and developer workflows."
+        title={t("work.title")}
+        subtitle={t("work.description")}
       />
 
       <FeaturedCard item={featured} />

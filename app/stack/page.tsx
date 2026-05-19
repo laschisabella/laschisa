@@ -2,7 +2,7 @@
 
 import {
   ChevronRightCircle,
-  CloudCogIcon,
+  ChartNoAxesCombined as Charts,
   PaintBucketIcon,
   ServerCogIcon,
 } from "lucide-react";
@@ -10,6 +10,8 @@ import Image from "next/image";
 import me from "@/public/me.png";
 import { motion } from "framer-motion";
 import CountUp from "@/components/CountUp";
+import { useI18n } from "@/hooks/useI18n";
+import { I18nContextType } from "@/providers/I18nProvider";
 
 type StackItem = {
   title: string;
@@ -20,46 +22,43 @@ type StackItem = {
   bg: string;
 };
 
-const STACK: StackItem[] = [
+const STACK = (t: I18nContextType["t"]): StackItem[] => [
   {
-    title: "Frontend Engineering",
-    description:
-      "Building scalable frontend applications and developer-focused interfaces with an emphasis on usability, maintainability and design systems.",
+    title: t("stack.frontend.title"),
+    description: t("stack.frontend.description"),
     icon: PaintBucketIcon,
     highlight: "border-t-8 border-accent",
     items: [
-      "React & Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "React Native & Flutter",
+      t("stack.frontend.items.0"),
+      t("stack.frontend.items.1"),
+      t("stack.frontend.items.2"),
+      t("stack.frontend.items.3"),
     ],
     bg: "bg-card/75",
   },
   {
-    title: "Backend & Integrations",
-    description:
-      "Designing backend workflows, API integrations and data transformation systems across platforms like Shopify, NetSuite and QuickBooks.",
+    title: t("stack.backend.title"),
+    description: t("stack.backend.description"),
     icon: ServerCogIcon,
     highlight: "border-t-8 border-primary",
     items: [
-      "Node.js & Nest.js",
-      "REST APIs & Webhooks",
-      "System Integrations",
-      "MongoDB & MySQL",
+      t("stack.backend.items.0"),
+      t("stack.backend.items.1"),
+      t("stack.backend.items.2"),
+      t("stack.backend.items.3"),
     ],
     bg: "bg-card/75",
   },
   {
-    title: "Architecture & Product Thinking",
-    description:
-      "Focused on simplifying complex workflows through technical architecture, developer experience and interface-driven problem solving.",
-    icon: CloudCogIcon,
+    title: t("stack.architecture.title"),
+    description: t("stack.architecture.description"),
+    icon: Charts,
     highlight: "border-t-8 border-accent",
     items: [
-      "Developer Tooling",
-      "Accessibility",
-      "UX/UI Systems",
-      "Technical Refactoring",
+      t("stack.architecture.items.0"),
+      t("stack.architecture.items.1"),
+      t("stack.architecture.items.2"),
+      t("stack.architecture.items.3"),
     ],
     bg: "bg-card/75",
   },
@@ -75,13 +74,13 @@ function StackCard({
 }: StackItem) {
   return (
     <div
-      className={`rounded-[20px] p-6 h-full lg:p-10 flex flex-col ${bg} ${highlight} min-w-0`}
+      className={`rounded-[20px] p-6 h-full lg:p-10 flex flex-col ${bg} ${highlight}`}
     >
       <div className="bg-white/40 dark:bg-primary/10 p-4 self-start rounded-xl">
         <Icon size={40} className="text-accent" />
       </div>
       <h2 className="text-3xl font-semibold mt-8 mb-4">{title}</h2>
-      <p className="text-zinc-500 mb-10 min-h-26">{description}</p>
+      <p className="text-zinc-500 mb-10 min-h-38">{description}</p>
       <ul className="text-zinc-500">
         {items.map((item, index) => (
           <li
@@ -100,13 +99,15 @@ function StackCard({
 }
 
 function Stats() {
+  const { t } = useI18n();
+
   const stats = [
-    { value: 6, suffix: "+", label: "years exp", color: "text-primary/60" },
-    { value: 40, suffix: "+", label: "products", color: "text-secondary/60" },
-    { value: 12000, suffix: "+", label: "commits", color: "text-accent/60" },
+    { value: 6, suffix: "+", label: t("stack.about.stats.years"), color: "text-primary/60" },
+    { value: 40, suffix: "+", label: t("stack.about.stats.products"), color: "text-secondary/60" },
+    { value: 12000, suffix: "+", label: t("stack.about.stats.commits"), color: "text-accent/60" },
   ];
   return (
-    <div className="mt-10 flex flex-wrap justify-center lg:justify-end lg:mr-10 gap-5 lg:gap-14">
+    <div className="mt-6 flex flex-wrap justify-center lg:justify-end lg:mr-10 gap-5 lg:gap-14">
       {stats.map((stat) => (
         <div key={stat.label} className="flex flex-col items-center min-w-0">
           <span className={`${stat.color} text-xl lg:text-3xl font-semibold`}>
@@ -123,6 +124,8 @@ function Stats() {
 }
 
 function AboutSection() {
+  const { t } = useI18n();
+
   return (
     <section className="bg-card/75 z-10 w-full mt-8 rounded-[20px] flex flex-col lg:flex-row justify-center gap-10 lg:gap-20 p-6 lg:p-12 items-center overflow-hidden">
       <div className="bg-accent rounded-[20px] lg:w-[30%] w-[70%] overflow-hidden">
@@ -132,28 +135,15 @@ function AboutSection() {
           className="w-full h-auto rounded-[20px] opacity-60 relative -top-5"
         />
       </div>
-
       <div className="lg:w-[70%] w-full text-zinc-500 min-w-0">
         <span className="uppercase text-xs text-primary tracking-widest font-bold">
-          beyond the code
+          {t("stack.about.title")}
         </span>
-
         <h1 className="font-semibold text-secondary text-3xl my-3">
-          Designing clarity for complex workflows.
+          {t("stack.about.subtitle")}
         </h1>
-
-        <p className="mb-3">
-          My background in frontend engineering and system integrations shaped
-          the way I approach software: not just as interfaces, but as tools that
-          help people navigate complexity with more clarity and efficiency.
-        </p>
-
-        <p className="mb-3">
-          I’m especially interested in developer experience, accessibility and
-          integration workflows — areas where technical architecture and
-          usability need to work together seamlessly.
-        </p>
-
+        <p className="mb-3">{t("stack.about.p1")}</p>
+        <p className="mb-3">{t("stack.about.p2")}</p>
         <Stats />
       </div>
     </section>
@@ -161,20 +151,21 @@ function AboutSection() {
 }
 
 export default function StackPage() {
+  const { t } = useI18n();
   return (
     <section
       id="Stack"
       className="max-w-6xl mx-auto flex flex-col overflow-hidden p-4 md:p-20 lg:p-4"
     >
       <section className="flex flex-col lg:flex-row gap-10 min-w-0">
-        {STACK.map((stack, i) => (
+        {STACK(t).map((stack, i) => (
           <motion.div
             key={stack.title}
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 + i * 0.1 }}
             viewport={{ once: false }}
-            className="z-10 mx-6 lg:mx-0"
+            className="z-10 mx-6 lg:mx-0 flex-1"
           >
             <StackCard {...stack} />
           </motion.div>
