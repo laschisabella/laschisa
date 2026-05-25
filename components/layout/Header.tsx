@@ -54,8 +54,8 @@ function ResumeButton({ className }: { className?: string }) {
   const { t, locale } = useI18n();
   const resumeUrl =
     locale === "pt"
-      ? "https://drive.google.com/SEU_LINK_PT"
-      : "https://drive.google.com/SEU_LINK_EN";
+      ? "https://docs.google.com/document/d/1mFc209OmdqWt1tfXlaP8-5iXgYPLLY6DNKTVpGFxGRs"
+      : "https://docs.google.com/document/d/11Wh6Gvj_PstleGsrQWomtbenJlADd0uCirroDvwajt8";
 
   return (
     <a
