@@ -141,7 +141,7 @@ function FeaturedCard({ item }: { item: WorkItem }) {
       </div>
 
       <div className="md:w-[50%] p-5">
-        <ul className="flex gap-5 mb-5">
+        <ul className="flex flex-wrap justify-center gap-5 mb-5">
           {item.category.map((cat) => (
             <li
               className="uppercase bg-accent/10 py-2 px-4 rounded-lg flex items-center text-xs tracking-widest font-bold text-primary/70 text-center"
@@ -176,7 +176,7 @@ function DefaultCard({ item, delay }: { item: WorkItem; delay: number }) {
         className="w-[80%] h-auto mx-auto mt-10 dark:opacity-80"
       />
       <div className="p-6 md:p-10 md:mx-10">
-        <ul className="flex justify-center gap-5">
+        <ul className="flex flex-wrap justify-center gap-5">
           {item.category.map((cat) => (
             <li
               className="uppercase bg-accent/10 py-2 px-4 rounded-lg flex items-center text-xs tracking-widest font-bold text-primary/70 text-center"

@@ -57,9 +57,9 @@ export default function Hero() {
   return (
     <section
       id="About"
-      className="flex flex-col-reverse lg:flex-row gap-20 lg:gap-30 justify-center items-center px-5 my-16 lg:my-36 overflow-hidden"
+      className="flex flex-col-reverse lg:flex-row gap-20 lg:gap-30 justify-center items-center px-5 mt-8 md:mt-36 mb-16 lg:my-36 md:mx-5 overflow-hidden"
     >
-      <div className="flex flex-col gap-5 max-w-2xl text-center lg:text-left">
+      <div className="flex flex-col gap-5 min-w-[30vw] text-center lg:text-left">
         <motion.span
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}

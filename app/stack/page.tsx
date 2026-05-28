@@ -80,7 +80,7 @@ function StackCard({
         <Icon size={40} className="text-accent" />
       </div>
       <h2 className="text-3xl font-semibold mt-8 mb-4">{title}</h2>
-      <p className="text-zinc-500 mb-10 min-h-38">{description}</p>
+      <p className="text-zinc-500 mb-10 lg:min-h-38">{description}</p>
       <ul className="text-zinc-500">
         {items.map((item, index) => (
           <li
